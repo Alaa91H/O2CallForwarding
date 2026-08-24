@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name=\"app_name\">Przekierowanie połączeń O2</string>
+    <string name="app_name">Przekierowanie połączeń O2</string>
 
-    <string name=\"info_banner_title\">O tej aplikacji</string>
-    <string name=\"info_banner_body\">Ta aplikacja wysyła standardowe kody sieciowe, które Twój operator już używa do przekierowywania połączeń — te same kody, które wybierasz ręcznie. Nie wymaga połączenia z internetem i żadne dane nie opuszczają Twojego telefonu.</string>
+    <string name="info_banner_title">O tej aplikacji</string>
+    <string name="info_banner_body">Ta aplikacja wysyła standardowe kody sieciowe, które Twój operator już używa do przekierowywania połączeń — te same kody, które wybierasz ręcznie. Nie wymaga połączenia z internetem i żadne dane nie opuszczają Twojego telefonu.</string>
 
-    <string name=\"permission_rationale_title\">Wymagane uprawnienie do telefonu</string>
-    <string name=\"permission_rationale_body\">Aby wysyłać i odczytywać kody przekierowania, aplikacja potrzebuje uprawnienia do wykonywania połączeń. Jest ono używane wyłącznie do kodów sieciowych pokazanych poniżej.</string>
-    <string name=\"permission_grant_button\">Nadaj uprawnienie</string>
+    <string name="permission_rationale_title">Wymagane uprawnienie do telefonu</string>
+    <string name="permission_rationale_body">Aby wysyłać i odczytywać kody przekierowania, aplikacja potrzebuje uprawnienia do wykonywania połączeń. Jest ono używane wyłącznie do kodów sieciowych pokazanych poniżej.</string>
+    <string name="permission_grant_button">Nadaj uprawnienie</string>
 
-    <string name=\"type_unconditional_title\">Przekieruj wszystkie połączenia</string>
-    <string name=\"type_unconditional_explanation\">Każde połączenie przychodzące jest natychmiast przekierowywane, bez dzwonienia na tym telefonie.</string>
-    <string name=\"type_busy_title\">Gdy zajęte</string>
-    <string name=\"type_busy_explanation\">Połączenia są przekierowywane tylko wtedy, gdy jesteś już w innej rozmowie.</string>
-    <string name=\"type_no_answer_title\">Gdy nie odebrano</string>
-    <string name=\"type_no_answer_explanation\">Połączenia są przekierowywane, jeśli nie odbierzesz po kilku sygnałach.</string>
-    <string name=\"type_unreachable_title\">Gdy niedostępny</string>
-    <string name=\"type_unreachable_explanation\">Połączenia są przekierowywane, gdy telefon jest wyłączony lub poza zasięgiem.</string>
-    <string name=\"type_all_conditional_title\">Wszystkie przypadki warunkowe</string>
-    <string name=\"type_all_conditional_explanation\">Włącza przekierowanie przy zajętości, braku odpowiedzi i niedostępności jednocześnie, jednym krokiem.</string>
+    <string name="type_unconditional_title">Przekieruj wszystkie połączenia</string>
+    <string name="type_unconditional_explanation">Każde połączenie przychodzące jest natychmiast przekierowywane, bez dzwonienia na tym telefonie.</string>
+    <string name="type_busy_title">Gdy zajęte</string>
+    <string name="type_busy_explanation">Połączenia są przekierowywane tylko wtedy, gdy jesteś już w innej rozmowie.</string>
+    <string name="type_no_answer_title">Gdy nie odebrano</string>
+    <string name="type_no_answer_explanation">Połączenia są przekierowywane, jeśli nie odbierzesz po kilku sygnałach.</string>
+    <string name="type_unreachable_title">Gdy niedostępny</string>
+    <string name="type_unreachable_explanation">Połączenia są przekierowywane, gdy telefon jest wyłączony lub poza zasięgiem.</string>
+    <string name="type_all_conditional_title">Wszystkie przypadki warunkowe</string>
+    <string name="type_all_conditional_explanation">Włącza przekierowanie przy zajętości, braku odpowiedzi i niedostępności jednocześnie, jednym krokiem.</string>
 
-    <string name=\"number_source_voicemail\">Poczta głosowa</string>
-    <string name=\"number_source_custom\">Własny numer</string>
-    <string name=\"custom_number_label\">Numer przekierowania</string>
-    <string name=\"custom_number_placeholder\">np. +49 176 xxxxxxxx</string>
-    <string name=\"voicemail_detected_hint\">Automatycznie wykryto z karty SIM: %1$s</string>
-    <string name=\"voicemail_not_detected_hint\">Nie udało się odczytać automatycznie. W o2 numer poczty głosowej to zazwyczaj Twój własny numer z wstawionym 33 po prefiksie (np. 0176 33 xxxxxxx) — 13, jeśli numer pochodzi od Telekom, lub 55 od Vodafone. Możesz też zadzwonić pod 333, aby połączyć się bezpośrednio.</string>
+    <string name="number_source_voicemail">Poczta głosowa</string>
+    <string name="number_source_custom">Własny numer</string>
+    <string name="custom_number_label">Numer przekierowania</string>
+    <string name="custom_number_placeholder">np. +49 176 xxxxxxxx</string>
+    <string name="voicemail_detected_hint">Automatycznie wykryto z karty SIM: %1$s</string>
+    <string name="voicemail_not_detected_hint">Nie udało się odczytać automatycznie. W o2 numer poczty głosowej to zazwyczaj Twój własny numer z wstawionym 33 po prefiksie (np. 0176 33 xxxxxxx) — 13, jeśli numer pochodzi od Telekom, lub 55 od Vodafone. Możesz też zadzwonić pod 333, aby połączyć się bezpośrednio.</string>
 
-    <string name=\"status_unknown\">Status nie został jeszcze sprawdzony</string>
-    <string name=\"status_checking\">Sprawdzanie…</string>
-    <string name=\"status_active_label\">Odpowiedź sieci: %1$s</string>
-    <string name=\"status_error_generic\">Nie można połączyć z siecią — spróbuj ponownie</string>
-    <string name=\"status_error_permission\">Wymagane uprawnienie do telefonu</string>
-    <string name=\"status_opened_dialer\">Otwarto w aplikacji Telefon — naciśnij przycisk połączenia, aby kontynuować</string>
-    <string name=\"check_status_button\">Sprawdź aktualny status</string>
+    <string name="status_unknown">Status nie został jeszcze sprawdzony</string>
+    <string name="status_checking">Sprawdzanie…</string>
+    <string name="status_active_label">Odpowiedź sieci: %1$s</string>
+    <string name="status_error_generic">Nie można połączyć z siecią — spróbuj ponownie</string>
+    <string name="status_error_permission">Wymagane uprawnienie do telefonu</string>
+    <string name="status_opened_dialer">Otwarto w aplikacji Telefon — naciśnij przycisk połączenia, aby kontynuować</string>
+    <string name="check_status_button">Sprawdź aktualny status</string>
 
-    <string name=\"cancel_all_title\">Anuluj wszystkie przekierowania</string>
-    <string name=\"cancel_all_explanation\">Jeden kod, aby wyłączyć wszystkie typy przekierowania naraz (##002#).</string>
-    <string name=\"cancel_all_button\">Anuluj wszystko</string>
+    <string name="cancel_all_title">Anuluj wszystkie przekierowania</string>
+    <string name="cancel_all_explanation">Jeden kod, aby wyłączyć wszystkie typy przekierowania naraz (##002#).</string>
+    <string name="cancel_all_button">Anuluj wszystko</string>
 
-    <string name=\"error_missing_number\">Najpierw wpisz numer</string>
-    <string name=\"footer_note\">To standardowe kody sieciowe, wysyłane bezpośrednio przez sieć telefoniczną — internet nie jest wymagany.</string>
+    <string name="error_missing_number">Najpierw wpisz numer</string>
+    <string name="footer_note">To standardowe kody sieciowe, wysyłane bezpośrednio przez sieć telefoniczną — internet nie jest wymagany.</string>
 
-    <string name=\"cd_check_status\">Sprawdź status</string>
-    <string name=\"cd_permission_icon\">Wymagane uprawnienie</string>
+    <string name="cd_check_status">Sprawdź status</string>
+    <string name="cd_permission_icon">Wymagane uprawnienie</string>
 </resources>

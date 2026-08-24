@@ -39,40 +39,18 @@ jobs:
           fi
 
       - name: Build Debug APK
-        id: build_debug
-        run: |
-          set +e
-          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | grep -v "^$" | tail -200 > build-tail.txt
-          EXIT=${PIPESTATUS[0]}
-          echo "exit=$EXIT" >> $GITHUB_OUTPUT
-          cat build-tail.txt
-          echo "Exit code: $EXIT"
-          exit $EXIT
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
-      - name: Commit build error
-        if: failure()
-        run: |
-          git config user.name "CI Bot"
-          git config user.email "ci@bot.com"
-          echo "=== BUILD OUTPUT TAIL ===" > BUILD_ERROR_LOG.txt
-          cat build-tail.txt >> BUILD_ERROR_LOG.txt
-          git add BUILD_ERROR_LOG.txt
-          git diff --cached --quiet && exit 0
-          git commit -m "CI: build error log [skip ci]"
-          git push origin HEAD:main
-
       - name: Build Release AAB
-        if: success()
         run: ./gradlew bundleRelease --no-daemon --stacktrace
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Upload Debug APK
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
@@ -80,7 +58,6 @@ jobs:
           if-no-files-found: error
 
       - name: Upload Release AAB
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: bundle-release
@@ -88,7 +65,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Create GitHub Release
-        if: success() && startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           name: "Release v${{ steps.version.outputs.version }}"
