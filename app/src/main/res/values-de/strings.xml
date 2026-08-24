@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">O2 Rufumleitung</string>
+
+    <string name="info_banner_title">Über diese App</string>
+    <string name="info_banner_body">Diese App sendet die Standard-Netzcodes, die dein Anbieter für Rufumleitungen ohnehin verwendet – dieselben Codes wie beim manuellen Wählen. Es wird keine Internetverbindung benötigt, und es verlassen keine Daten dein Telefon.</string>
+
+    <string name="permission_rationale_title">Telefonberechtigung erforderlich</string>
+    <string name="permission_rationale_body">Um Umleitungscodes zu senden und abzufragen, benötigt die App die Berechtigung, Anrufe zu tätigen. Sie wird ausschließlich für die unten gezeigten Netzcodes verwendet.</string>
+    <string name="permission_grant_button">Berechtigung erteilen</string>
+
+    <string name="type_unconditional_title">Alle Anrufe umleiten</string>
+    <string name="type_unconditional_explanation">Jeder eingehende Anruf wird sofort umgeleitet, ohne dass dieses Telefon klingelt.</string>
+    <string name="type_busy_title">Bei Besetzt</string>
+    <string name="type_busy_explanation">Anrufe werden nur umgeleitet, während du bereits telefonierst.</string>
+    <string name="type_no_answer_title">Bei Nichtannahme</string>
+    <string name="type_no_answer_explanation">Anrufe werden umgeleitet, wenn du nach einigen Klingelzeichen nicht abnimmst.</string>
+    <string name="type_unreachable_title">Bei Nichterreichbarkeit</string>
+    <string name="type_unreachable_explanation">Anrufe werden umgeleitet, wenn dein Telefon aus ist oder keinen Empfang hat.</string>
+    <string name="type_all_conditional_title">Alle bedingten Fälle</string>
+    <string name="type_all_conditional_explanation">Aktiviert Besetzt-, Nichtannahme- und Nichterreichbarkeits-Umleitung gemeinsam in einem Schritt.</string>
+
+    <string name="number_source_voicemail">Mailbox</string>
+    <string name="number_source_custom">Eigene Nummer</string>
+    <string name="custom_number_label">Umleitungsnummer</string>
+    <string name="custom_number_placeholder">z. B. +49 176 xxxxxxxx</string>
+    <string name="voicemail_detected_hint">Automatisch von der SIM erkannt: %1$s</string>
+    <string name="voicemail_not_detected_hint">Konnte nicht automatisch gelesen werden. Bei o2 besteht die Mailbox-Nummer meist aus deiner eigenen Nummer mit eingefügter 33 nach der Vorwahl (z. B. 0176 33 xxxxxxx) – 13, wenn deine Nummer von der Telekom stammt, oder 55 von Vodafone. Du erreichst die Mailbox auch direkt über die Kurzwahl 333.</string>
+
+    <string name="status_unknown">Status noch nicht geprüft</string>
+    <string name="status_checking">Wird geprüft…</string>
+    <string name="status_active_label">Antwort des Netzes: %1$s</string>
+    <string name="status_error_generic">Netz nicht erreichbar – bitte erneut versuchen</string>
+    <string name="status_error_permission">Telefonberechtigung erforderlich</string>
+    <string name="status_opened_dialer">In der Telefon-App geöffnet – zum Fortfahren die Anruftaste drücken</string>
+    <string name="check_status_button">Aktuellen Status prüfen</string>
+
+    <string name="cancel_all_title">Alle Umleitungen löschen</string>
+    <string name="cancel_all_explanation">Ein einziger Code, um alle Umleitungsarten gleichzeitig auszuschalten (##002#).</string>
+    <string name="cancel_all_button">Alle löschen</string>
+
+    <string name="error_missing_number">Bitte zuerst eine Nummer eingeben</string>
+    <string name="footer_note">Das sind Standard-Netzcodes, die direkt über das Telefonnetz gesendet werden – kein Internet erforderlich.</string>
+
+    <string name="cd_check_status">Status prüfen</string>
+    <string name="cd_permission_icon">Berechtigung erforderlich</string>
+</resources>

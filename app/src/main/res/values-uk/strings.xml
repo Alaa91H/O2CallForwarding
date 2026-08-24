@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Переадресація дзвінків O2</string>
+
+    <string name="info_banner_title">Про застосунок</string>
+    <string name="info_banner_body">Цей застосунок надсилає стандартні мережеві коди, які ваш оператор і так використовує для переадресації дзвінків — ті самі коди, що й при ручному наборі. Інтернет не потрібен, і жодні дані не залишають ваш телефон.</string>
+
+    <string name="permission_rationale_title">Потрібен дозвіл на дзвінки</string>
+    <string name="permission_rationale_body">Щоб надсилати й перевіряти коди переадресації, застосунку потрібен дозвіл здійснювати виклики. Він використовується лише для мережевих кодів, показаних нижче.</string>
+    <string name="permission_grant_button">Надати дозвіл</string>
+
+    <string name="type_unconditional_title">Переадресувати всі дзвінки</string>
+    <string name="type_unconditional_explanation">Кожен вхідний дзвінок переадресовується одразу, без дзвінка на цьому телефоні.</string>
+    <string name="type_busy_title">Коли зайнято</string>
+    <string name="type_busy_explanation">Дзвінки переадресовуються, лише коли ви вже розмовляєте.</string>
+    <string name="type_no_answer_title">Коли немає відповіді</string>
+    <string name="type_no_answer_explanation">Дзвінки переадресовуються, якщо ви не відповідаєте після кількох гудків.</string>
+    <string name="type_unreachable_title">Коли недоступний</string>
+    <string name="type_unreachable_explanation">Дзвінки переадресовуються, коли телефон вимкнено або поза зоною покриття.</string>
+    <string name="type_all_conditional_title">Усі умовні випадки</string>
+    <string name="type_all_conditional_explanation">Вмикає переадресацію при зайнятості, відсутності відповіді й недоступності одночасно, одним кроком.</string>
+
+    <string name="number_source_voicemail">Голосова пошта</string>
+    <string name="number_source_custom">Власний номер</string>
+    <string name="custom_number_label">Номер для переадресації</string>
+    <string name="custom_number_placeholder">напр. +49 176 xxxxxxxx</string>
+    <string name="voicemail_detected_hint">Визначено автоматично з SIM-картки: %1$s</string>
+    <string name="voicemail_not_detected_hint">Не вдалося визначити автоматично. У o2 номер голосової пошти — це зазвичай ваш власний номер із доданим 33 після коду мережі (напр. 0176 33 xxxxxxx) — 13, якщо номер перенесено з Telekom, або 55 з Vodafone. Також можна набрати 333, щоб потрапити туди напряму.</string>
+
+    <string name="status_unknown">Статус ще не перевірено</string>
+    <string name="status_checking">Перевірка…</string>
+    <string name="status_active_label">Відповідь мережі: %1$s</string>
+    <string name="status_error_generic">Не вдалося зв\'язатися з мережею — спробуйте ще раз</string>
+    <string name="status_error_permission">Потрібен дозвіл на дзвінки</string>
+    <string name="status_opened_dialer">Відкрито в застосунку телефону — натисніть кнопку виклику, щоб продовжити</string>
+    <string name="check_status_button">Перевірити поточний статус</string>
+
+    <string name="cancel_all_title">Скасувати всі переадресації</string>
+    <string name="cancel_all_explanation">Один код, щоб вимкнути всі типи переадресації одразу (##002#).</string>
+    <string name="cancel_all_button">Скасувати все</string>
+
+    <string name="error_missing_number">Спочатку введіть номер</string>
+    <string name="footer_note">Це стандартні мережеві коди, які надсилаються безпосередньо через телефонну мережу — інтернет не потрібен.</string>
+
+    <string name="cd_check_status">Перевірити статус</string>
+    <string name="cd_permission_icon">Потрібен дозвіл</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Redirecționare apeluri O2</string>
+
+    <string name="info_banner_title">Despre aplicație</string>
+    <string name="info_banner_body">Această aplicație trimite codurile standard de rețea pe care operatorul tău le folosește deja pentru redirecționarea apelurilor — aceleași coduri pe care le-ai forma manual. Nu este nevoie de conexiune la internet și nicio dată nu părăsește telefonul tău.</string>
+
+    <string name="permission_rationale_title">Este necesară permisiunea de telefon</string>
+    <string name="permission_rationale_body">Pentru a trimite și a citi codurile de redirecționare, aplicația are nevoie de permisiunea de a efectua apeluri. Este folosită doar pentru codurile de rețea afișate mai jos.</string>
+    <string name="permission_grant_button">Acordă permisiunea</string>
+
+    <string name="type_unconditional_title">Redirecționează toate apelurile</string>
+    <string name="type_unconditional_explanation">Fiecare apel primit este redirecționat imediat, fără ca acest telefon să sune.</string>
+    <string name="type_busy_title">Când este ocupat</string>
+    <string name="type_busy_explanation">Apelurile sunt redirecționate doar cât timp ești deja în alt apel.</string>
+    <string name="type_no_answer_title">Când nu răspunzi</string>
+    <string name="type_no_answer_explanation">Apelurile sunt redirecționate dacă nu răspunzi după câteva apeluri.</string>
+    <string name="type_unreachable_title">Când nu ești accesibil</string>
+    <string name="type_unreachable_explanation">Apelurile sunt redirecționate când telefonul este oprit sau în afara acoperirii rețelei.</string>
+    <string name="type_all_conditional_title">Toate cazurile condiționate</string>
+    <string name="type_all_conditional_explanation">Activează redirecționarea pentru ocupat, fără răspuns și inaccesibil, toate deodată, într-un singur pas.</string>
+
+    <string name="number_source_voicemail">Mesagerie vocală</string>
+    <string name="number_source_custom">Număr personalizat</string>
+    <string name="custom_number_label">Număr de redirecționare</string>
+    <string name="custom_number_placeholder">ex. +49 176 xxxxxxxx</string>
+    <string name="voicemail_detected_hint">Detectat automat de pe SIM: %1$s</string>
+    <string name="voicemail_not_detected_hint">Nu a putut fi citit automat. La o2, numărul mesageriei vocale este de obicei propriul tău număr cu 33 introdus după prefix (ex. 0176 33 xxxxxxx) — 13 dacă numărul provine de la Telekom, sau 55 de la Vodafone. Poți suna și direct la 333 pentru a ajunge acolo.</string>
+
+    <string name="status_unknown">Starea nu a fost încă verificată</string>
+    <string name="status_checking">Se verifică…</string>
+    <string name="status_active_label">Răspunsul rețelei: %1$s</string>
+    <string name="status_error_generic">Rețeaua nu a putut fi contactată — încearcă din nou</string>
+    <string name="status_error_permission">Este necesară permisiunea de telefon</string>
+    <string name="status_opened_dialer">S-a deschis în aplicația Telefon — apasă butonul de apel pentru a continua</string>
+    <string name="check_status_button">Verifică starea curentă</string>
+
+    <string name="cancel_all_title">Anulează toate redirecționările</string>
+    <string name="cancel_all_explanation">Un singur cod pentru a dezactiva toate tipurile de redirecționare deodată (##002#).</string>
+    <string name="cancel_all_button">Anulează tot</string>
+
+    <string name="error_missing_number">Introdu mai întâi un număr</string>
+    <string name="footer_note">Acestea sunt coduri standard de rețea, trimise direct prin rețeaua telefonică — nu este nevoie de internet.</string>
+
+    <string name="cd_check_status">Verifică starea</string>
+    <string name="cd_permission_icon">Este necesară permisiunea</string>
+</resources>

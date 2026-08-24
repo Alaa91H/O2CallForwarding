@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fallback language, used when the system language is none of the
+     five supported ones (German, Arabic, Turkish, Ukrainian, Romanian). -->
+<resources>
+    <string name="app_name">O2 Call Forwarding</string>
+
+    <string name="info_banner_title">About this app</string>
+    <string name="info_banner_body">This app sends the standard network codes your carrier already uses for call forwarding — the same codes used when dialing them manually. No internet connection is required, and no data leaves your phone.</string>
+
+    <string name="permission_rationale_title">Phone permission needed</string>
+    <string name="permission_rationale_body">To send and read forwarding codes, this app needs permission to make calls. It is only used for the network codes shown below.</string>
+    <string name="permission_grant_button">Grant permission</string>
+
+    <string name="type_unconditional_title">Forward all calls</string>
+    <string name="type_unconditional_explanation">Every incoming call is forwarded immediately, with no ringing on this phone.</string>
+    <string name="type_busy_title">When busy</string>
+    <string name="type_busy_explanation">Calls are forwarded only while you\'re already on another call.</string>
+    <string name="type_no_answer_title">When unanswered</string>
+    <string name="type_no_answer_explanation">Calls are forwarded if you don\'t answer after a few rings.</string>
+    <string name="type_unreachable_title">When unreachable</string>
+    <string name="type_unreachable_explanation">Calls are forwarded when your phone is off or out of coverage.</string>
+    <string name="type_all_conditional_title">All conditional cases</string>
+    <string name="type_all_conditional_explanation">Turns on busy, unanswered, and unreachable forwarding together, in one step.</string>
+
+    <string name="number_source_voicemail">Voicemail</string>
+    <string name="number_source_custom">Custom number</string>
+    <string name="custom_number_label">Forwarding number</string>
+    <string name="custom_number_placeholder">e.g. +49 176 xxxxxxxx</string>
+    <string name="voicemail_detected_hint">Detected automatically from your SIM: %1$s</string>
+    <string name="voicemail_not_detected_hint">Couldn\'t read it automatically. On o2, your mailbox number is usually your own number with 33 inserted after the prefix (e.g. 0176 33 xxxxxxx) — 13 if your number came from Telekom, or 55 from Vodafone. You can also just dial 333 to reach it directly.</string>
+
+    <string name="status_unknown">Status not checked yet</string>
+    <string name="status_checking">Checking…</string>
+    <string name="status_active_label">Network says: %1$s</string>
+    <string name="status_error_generic">Couldn\'t reach the network — please try again</string>
+    <string name="status_error_permission">Phone permission is required</string>
+    <string name="status_opened_dialer">Opened in your Phone app — press call to continue</string>
+    <string name="check_status_button">Check current status</string>
+
+    <string name="cancel_all_title">Cancel every forwarding</string>
+    <string name="cancel_all_explanation">One code to switch off all forwarding types at once (##002#).</string>
+    <string name="cancel_all_button">Cancel all</string>
+
+    <string name="error_missing_number">Enter a number first</string>
+    <string name="footer_note">These are standard network codes, sent directly over the phone network — no internet required.</string>
+
+    <string name="cd_check_status">Check status</string>
+    <string name="cd_permission_icon">Permission required</string>
+</resources>

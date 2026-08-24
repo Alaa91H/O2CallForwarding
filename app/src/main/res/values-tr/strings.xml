@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">O2 Çağrı Yönlendirme</string>
+
+    <string name="info_banner_title">Bu uygulama hakkında</string>
+    <string name="info_banner_body">Bu uygulama, operatörünüzün çağrı yönlendirme için zaten kullandığı standart şebeke kodlarını gönderir — elle çevirdiğiniz kodların aynısı. İnternet bağlantısı gerekmez ve hiçbir veri telefonunuzdan çıkmaz.</string>
+
+    <string name="permission_rationale_title">Telefon izni gerekli</string>
+    <string name="permission_rationale_body">Yönlendirme kodlarını gönderip okuyabilmek için uygulamanın arama yapma iznine ihtiyacı var. Yalnızca aşağıda gösterilen şebeke kodları için kullanılır.</string>
+    <string name="permission_grant_button">İzin ver</string>
+
+    <string name="type_unconditional_title">Tüm aramaları yönlendir</string>
+    <string name="type_unconditional_explanation">Gelen her arama, bu telefon çalmadan hemen yönlendirilir.</string>
+    <string name="type_busy_title">Meşgulken</string>
+    <string name="type_busy_explanation">Aramalar yalnızca siz başka bir görüşmedeyken yönlendirilir.</string>
+    <string name="type_no_answer_title">Cevapsız kalınca</string>
+    <string name="type_no_answer_explanation">Birkaç çalmadan sonra cevap vermezseniz aramalar yönlendirilir.</string>
+    <string name="type_unreachable_title">Ulaşılamazken</string>
+    <string name="type_unreachable_explanation">Telefonunuz kapalıyken veya şebeke kapsama alanı dışındayken aramalar yönlendirilir.</string>
+    <string name="type_all_conditional_title">Tüm koşullu durumlar</string>
+    <string name="type_all_conditional_explanation">Meşgul, cevapsız ve ulaşılamaz yönlendirmelerini tek adımda birlikte açar.</string>
+
+    <string name="number_source_voicemail">Sesli mesaj</string>
+    <string name="number_source_custom">Özel numara</string>
+    <string name="custom_number_label">Yönlendirme numarası</string>
+    <string name="custom_number_placeholder">örn. +49 176 xxxxxxxx</string>
+    <string name="voicemail_detected_hint">SIM\'den otomatik algılandı: %1$s</string>
+    <string name="voicemail_not_detected_hint">Otomatik olarak okunamadı. o2\'de sesli mesaj numaranız genellikle kendi numaranızın şebeke koduyla arasına 33 eklenmiş hâlidir (ör. 0176 33 xxxxxxx) — numaranız Telekom\'dan geldiyse 13, Vodafone\'dan geldiyse 55. Ayrıca 333\'ü arayarak da doğrudan ulaşabilirsiniz.</string>
+
+    <string name="status_unknown">Durum henüz kontrol edilmedi</string>
+    <string name="status_checking">Kontrol ediliyor…</string>
+    <string name="status_active_label">Şebeke yanıtı: %1$s</string>
+    <string name="status_error_generic">Şebekeye ulaşılamadı — lütfen tekrar deneyin</string>
+    <string name="status_error_permission">Telefon izni gerekli</string>
+    <string name="status_opened_dialer">Telefon uygulamasında açıldı — devam etmek için arama tuşuna basın</string>
+    <string name="check_status_button">Güncel durumu kontrol et</string>
+
+    <string name="cancel_all_title">Tüm yönlendirmeleri iptal et</string>
+    <string name="cancel_all_explanation">Tüm yönlendirme türlerini tek seferde kapatan tek kod (##002#).</string>
+    <string name="cancel_all_button">Tümünü iptal et</string>
+
+    <string name="error_missing_number">Önce bir numara girin</string>
+    <string name="footer_note">Bunlar, doğrudan telefon şebekesi üzerinden gönderilen standart şebeke kodlarıdır — internet gerekmez.</string>
+
+    <string name="cd_check_status">Durumu kontrol et</string>
+    <string name="cd_permission_icon">İzin gerekli</string>
+</resources>
