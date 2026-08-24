@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -39,7 +39,22 @@ jobs:
           fi
 
       - name: Build Release APK
-        run: ./gradlew assembleRelease
+        id: build
+        run: |
+          set +e
+          OUTPUT=$(./gradlew assembleRelease 2>&1)
+          EXIT=$?
+          echo "$OUTPUT" > /tmp/build-output.txt
+          {
+            echo "## Build Result (exit $EXIT)"
+            echo '```'
+            echo "$OUTPUT" | tail -100
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ $EXIT -ne 0 ]; then
+            echo "::error::Build failed with exit code $EXIT"
+          fi
+          exit $EXIT
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
@@ -84,7 +99,7 @@ jobs:
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           java-version: '17'
           distribution: 'temurin'
