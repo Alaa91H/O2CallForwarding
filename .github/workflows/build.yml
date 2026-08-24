@@ -39,19 +39,40 @@ jobs:
           fi
 
       - name: Build Release APK
-        run: ./gradlew assembleRelease
+        id: build_apk
+        run: ./gradlew assembleRelease 2>&1 | tee build-apk.log; echo "exit_code=$?" >> $GITHUB_OUTPUT
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease
+        if: success()
+        run: ./gradlew bundleRelease 2>&1 | tee build-aab.log; echo "exit_code=$?" >> $GITHUB_OUTPUT
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
+      - name: Debug - Show build logs
+        if: always()
+        run: |
+          echo "## Build Logs" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f build-apk.log ]; then
+            echo "### APK Build" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            tail -100 build-apk.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ -f build-aab.log ]; then
+            echo "### AAB Build" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            tail -100 build-aab.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+
       - name: List output files
-        run: find app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \)
+        if: always()
+        run: find app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) 2>/dev/null || echo "No output files found"
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
