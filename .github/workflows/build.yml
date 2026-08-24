@@ -41,23 +41,53 @@ jobs:
           fi
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --no-daemon --stacktrace
+        id: build_debug
+        run: |
+          BUILD_OUTPUT=$(./gradlew assembleDebug --no-daemon --stacktrace 2>&1) || true
+          echo "$BUILD_OUTPUT" | tail -200 > /tmp/build-debug.log
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -100 /tmp/build-debug.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          if echo "$BUILD_OUTPUT" | grep -q "BUILD SUCCESSFUL"; then
+            echo "✅ Build Debug APK succeeded"
+            exit 0
+          else
+            echo "❌ Build Debug APK failed"
+            exit 1
+          fi
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease --no-daemon --stacktrace
+        id: build_release
+        if: success()
+        run: |
+          BUILD_OUTPUT=$(./gradlew bundleRelease --no-daemon --stacktrace 2>&1) || true
+          echo "$BUILD_OUTPUT" | tail -200 > /tmp/build-release.log
+          echo '## Release Build' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -100 /tmp/build-release.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          if echo "$BUILD_OUTPUT" | grep -q "BUILD SUCCESSFUL"; then
+            echo "✅ Build Release AAB succeeded"
+            exit 0
+          else
+            echo "❌ Build Release AAB failed"
+            exit 1
+          fi
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: List build outputs
+        if: always()
         run: |
           echo "## Build Outputs" >> $GITHUB_STEP_SUMMARY
           find app/build/outputs -type f 2>/dev/null | head -20 >> $GITHUB_STEP_SUMMARY || echo "No outputs found" >> $GITHUB_STEP_SUMMARY
 
       - name: Upload Debug APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
@@ -65,6 +95,7 @@ jobs:
           if-no-files-found: error
 
       - name: Upload Release AAB
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: bundle-release
@@ -72,7 +103,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Create GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: success() && startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           name: "Release v${{ steps.version.outputs.version }}"
