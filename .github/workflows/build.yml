@@ -39,13 +39,17 @@ jobs:
           fi
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --no-daemon
+        run: |
+          ./gradlew assembleDebug 2>&1 | tee build.log
+          exit ${PIPESTATUS[0]}
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease --no-daemon
+        run: |
+          ./gradlew bundleRelease 2>&1 | tee aab.log
+          exit ${PIPESTATUS[0]}
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
