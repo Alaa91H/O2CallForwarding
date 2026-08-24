@@ -46,8 +46,11 @@ jobs:
             echo "code=1" >> $GITHUB_OUTPUT
           fi
 
-      - name: Make gradlew executable
-        run: chmod +x gradlew
+      - name: Fix gradlew
+        run: |
+          chmod +x gradlew
+          java -version 2>&1
+          ./gradlew --version
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug --no-daemon --stacktrace
