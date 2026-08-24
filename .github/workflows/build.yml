@@ -39,7 +39,18 @@ jobs:
           fi
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        id: build_apk
+        run: |
+          set +e
+          ./gradlew assembleDebug 2>&1 | tail -100 > gradle-error.log
+          EXIT_CODE=$?
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "## Gradle Build FAILED (exit code: $EXIT_CODE)" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat gradle-error.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            exit $EXIT_CODE
+          fi
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
@@ -51,17 +62,20 @@ jobs:
           echo "APK_FILE=O2CallForwarding-v${{ steps.version.outputs.version }}.apk" >> $GITHUB_ENV
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease
+        run: |
+          set +e
+          ./gradlew bundleRelease 2>&1 | tail -100 > gradle-aab-error.log
+          EXIT_CODE=$?
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "## AAB Build FAILED (exit code: $EXIT_CODE)" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat gradle-aab-error.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            exit $EXIT_CODE
+          fi
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
-
-      - name: List output files
-        run: |
-          echo "=== All output files ==="
-          find app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) 2>/dev/null
-          echo "=== Renamed APK ==="
-          ls -la *.apk 2>/dev/null || echo "No renamed APK"
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
