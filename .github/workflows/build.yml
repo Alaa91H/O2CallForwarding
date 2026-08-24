@@ -51,7 +51,12 @@ jobs:
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: List output files
-        run: find app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) 2>/dev/null
+        if: always()
+        run: |
+          echo "=== APK ==="
+          find app/build/outputs -type f -name "*.apk" 2>/dev/null || echo "No APK found"
+          echo "=== AAB ==="
+          find app/build/outputs -type f -name "*.aab" 2>/dev/null || echo "No AAB found"
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
