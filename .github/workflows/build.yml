@@ -28,7 +28,10 @@ jobs:
       - name: Decode keystore
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
+          mkdir -p app/signing
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/signing/release.keystore
+          chmod 600 app/signing/release.keystore
+          ls -la app/signing/
 
       - name: Extract version from tag
         id: version
