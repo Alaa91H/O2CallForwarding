@@ -45,28 +45,28 @@ jobs:
       - name: Build Debug APK
         id: build_debug
         run: |
-          ./gradlew assembleDebug --no-daemon --stacktrace > /tmp/build-debug.log 2>&1
-          EXIT_CODE=$?
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -150 /tmp/build-debug.log >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee /tmp/build-debug.log
+          GRADLE_EXIT=${PIPESTATUS[0]}
+          echo "Gradle exit code: $GRADLE_EXIT" >> $GITHUB_STEP_SUMMARY
+          if [ $GRADLE_EXIT -ne 0 ]; then
+            echo '### Last 100 lines of build output:' >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            tail -100 /tmp/build-debug.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
           find app/build/outputs -type f 2>/dev/null >> $GITHUB_STEP_SUMMARY || echo "No output files" >> $GITHUB_STEP_SUMMARY
-          exit $EXIT_CODE
+          exit $GRADLE_EXIT
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        id: build_release
         if: success()
         run: |
-          ./gradlew bundleRelease --no-daemon --stacktrace > /tmp/build-release.log 2>&1
-          EXIT_CODE=$?
-          echo '## Release Build' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -100 /tmp/build-release.log >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          exit $EXIT_CODE
+          ./gradlew bundleRelease --no-daemon --stacktrace 2>&1 | tee /tmp/build-release.log
+          GRADLE_EXIT=${PIPESTATUS[0]}
+          echo "Gradle exit code: $GRADLE_EXIT" >> $GITHUB_STEP_SUMMARY
+          exit $GRADLE_EXIT
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
@@ -105,7 +105,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-logs
-          path: |
-            /tmp/build-debug.log
-            /tmp/build-release.log
+          path: /tmp/build-debug.log
           if-no-files-found: ignore
