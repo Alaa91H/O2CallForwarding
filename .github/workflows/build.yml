@@ -39,13 +39,13 @@ jobs:
           fi
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug --no-daemon
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease
+        run: ./gradlew bundleRelease --no-daemon
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
@@ -53,10 +53,7 @@ jobs:
       - name: List output files
         if: always()
         run: |
-          echo "=== APK ==="
-          find app/build/outputs -type f -name "*.apk" 2>/dev/null || echo "No APK found"
-          echo "=== AAB ==="
-          find app/build/outputs -type f -name "*.aab" 2>/dev/null || echo "No AAB found"
+          find app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) 2>/dev/null || echo "No output files found"
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
