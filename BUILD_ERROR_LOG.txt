@@ -1,3 +1,4 @@
+=== FULL BUILD OUTPUT (last 300 lines) ===
 Downloading https://services.gradle.org/distributions/gradle-8.9-bin.zip
 ............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
 
@@ -16,10 +17,15 @@ Daemon will be stopped at the end of the build
 > Task :app:preDebugBuild UP-TO-DATE
 > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :app:generateDebugResValues
 > Task :app:checkDebugAarMetadata
+> Task :app:generateDebugResValues
 > Task :app:mapDebugSourceSetPaths
 > Task :app:generateDebugResources
 
 > Task :app:mergeDebugResources FAILED
 5 actionable tasks: 5 executed
+
+=== ERROR LINES ===
+ - Enhanced Error and Warning Messages
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:mergeDebugResources FAILED
