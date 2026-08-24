@@ -39,13 +39,20 @@ jobs:
           fi
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        run: |
+          ./gradlew assembleDebug 2>&1 | tee build.log
+          echo "EXIT_CODE=$?" >> $GITHUB_ENV
+          exit ${PIPESTATUS[0]}
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease
+        if: success()
+        run: |
+          ./gradlew bundleRelease 2>&1 | tee aab.log
+          echo "AAB_EXIT=$?" >> $GITHUB_ENV
+          exit ${PIPESTATUS[0]}
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
