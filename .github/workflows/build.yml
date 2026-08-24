@@ -41,51 +41,42 @@ jobs:
       - name: Build Debug APK
         id: build_apk
         run: |
-          set +e
-          ./gradlew assembleDebug 2>&1 | tail -100 > gradle-error.log
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "## Gradle Build FAILED (exit code: $EXIT_CODE)" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            cat gradle-error.log >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            exit $EXIT_CODE
-          fi
+          ./gradlew assembleDebug 2>&1 | tee build-debug.log
+          echo "apk_exit=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
-
-      - name: Rename APK
-        run: |
-          APK_PATH=$(find app/build/outputs/apk/debug -name "*.apk" | head -1)
-          cp "$APK_PATH" "O2CallForwarding-v${{ steps.version.outputs.version }}.apk"
-          echo "APK_FILE=O2CallForwarding-v${{ steps.version.outputs.version }}.apk" >> $GITHUB_ENV
 
       - name: Build Release AAB
+        if: steps.build_apk.outputs.apk_exit == '0'
         run: |
-          set +e
-          ./gradlew bundleRelease 2>&1 | tail -100 > gradle-aab-error.log
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "## AAB Build FAILED (exit code: $EXIT_CODE)" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            cat gradle-aab-error.log >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            exit $EXIT_CODE
-          fi
+          ./gradlew bundleRelease 2>&1 | tee build-aab.log
+          echo "aab_exit=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            build-debug.log
+            build-aab.log
+          if-no-files-found: warn
+          retention-days: 5
+
       - name: Upload APK Artifact
+        if: steps.build_apk.outputs.apk_exit == '0'
         uses: actions/upload-artifact@v4
         with:
           name: app-v${{ steps.version.outputs.version }}
-          path: ${{ env.APK_FILE }}
+          path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
 
       - name: Create GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v') && steps.build_apk.outputs.apk_exit == '0'
         uses: softprops/action-gh-release@v2
         with:
           name: "Release v${{ steps.version.outputs.version }}"
@@ -93,6 +84,6 @@ jobs:
           prerelease: false
           generate_release_notes: true
           files: |
-            ${{ env.APK_FILE }}
+            app/build/outputs/apk/debug/*.apk
             app/build/outputs/bundle/release/*.aab
           fail_on_unmatched_files: false
