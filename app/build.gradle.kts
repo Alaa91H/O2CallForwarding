@@ -19,6 +19,15 @@ android {
         versionName = tagVersion
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(System.getenv("KEYSTORE_FILE") ?: "signing/release.keystore")
+            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: "o2forward2024"
+            keyAlias = System.getenv("KEY_ALIAS") ?: "o2forward"
+            keyPassword = System.getenv("KEY_PASSWORD") ?: "o2forward2024"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -26,6 +35,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 
