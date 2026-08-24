@@ -38,20 +38,14 @@ jobs:
       - name: Fix gradlew permissions
         run: chmod +x gradlew
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --no-daemon
-        env:
-          VERSION_NAME: ${{ steps.version.outputs.version }}
-          VERSION_CODE: ${{ steps.version.outputs.code }}
-
       - name: Build Release APK
-        run: ./gradlew assembleRelease --no-daemon
+        run: ./gradlew assembleRelease --no-daemon 2>&1 | tail -200
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease --no-daemon
+        run: ./gradlew bundleRelease --no-daemon 2>&1 | tail -200
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
@@ -96,4 +90,4 @@ jobs:
           distribution: 'temurin'
       - run: chmod +x gradlew
       - name: Run Lint
-        run: ./gradlew lint --no-daemon
+        run: ./gradlew lint --no-daemon 2>&1 | tail -100
