@@ -1,0 +1,3 @@
+# Force LF line endings for files that must be executable on Linux CI
+gradlew text eol=lf
+*.sh text eol=lf
