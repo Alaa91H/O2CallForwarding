@@ -24,6 +24,8 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
 
       - name: Extract version from tag
         id: version
@@ -38,18 +40,25 @@ jobs:
             echo "code=1" >> $GITHUB_OUTPUT
           fi
 
-      - name: Build Debug APK
+      - name: Build Debug APK (retry)
         run: |
-          ./gradlew assembleDebug 2>&1 | tee build.log
-          exit ${PIPESTATUS[0]}
+          for i in 1 2 3; do
+            echo "=== Attempt $i ==="
+            if ./gradlew assembleDebug --no-daemon 2>&1; then
+              echo "Build succeeded on attempt $i"
+              exit 0
+            fi
+            echo "Build failed on attempt $i, retrying..."
+            sleep 10
+          done
+          echo "All attempts failed"
+          exit 1
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        run: |
-          ./gradlew bundleRelease 2>&1 | tee aab.log
-          exit ${PIPESTATUS[0]}
+        run: ./gradlew bundleRelease --no-daemon
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
