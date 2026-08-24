@@ -39,18 +39,35 @@ jobs:
           fi
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --no-daemon --stacktrace
+        id: build_debug
+        run: |
+          set +e
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 > /tmp/build-debug.log
+          EXIT=$?
+          echo "exit=$EXIT" >> $GITHUB_OUTPUT
+          echo '## Build Debug Output (last 200 lines)' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -200 /tmp/build-debug.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          if [ $EXIT -ne 0 ]; then
+            echo "FAIL" > /tmp/build-result.txt
+          else
+            echo "OK" > /tmp/build-result.txt
+          fi
+          exit $EXIT
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
+        if: success()
         run: ./gradlew bundleRelease --no-daemon --stacktrace
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Upload Debug APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
@@ -58,6 +75,7 @@ jobs:
           if-no-files-found: error
 
       - name: Upload Release AAB
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: bundle-release
@@ -65,7 +83,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Create GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: success() && startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           name: "Release v${{ steps.version.outputs.version }}"
