@@ -48,44 +48,31 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Release APK
-        run: ./gradlew assembleRelease --stacktrace
+        id: build
+        run: |
+          set +e
+          ./gradlew assembleRelease --stacktrace 2>&1 | tee build-log.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+          set -e
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
-      - name: Build Release AAB
-        run: ./gradlew bundleRelease --stacktrace
-        env:
-          VERSION_NAME: ${{ steps.version.outputs.version }}
-          VERSION_CODE: ${{ steps.version.outputs.code }}
+      - name: Show build errors
+        if: steps.build.outputs.exit_code != '0'
+        run: |
+          echo "=== BUILD FAILED (exit code: ${{ steps.build.outputs.exit_code }}) ==="
+          echo ""
+          echo "=== Last 100 lines of build log ==="
+          tail -100 build-log.txt || true
 
-      - name: Upload APK artifact
+      - name: Upload build log
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: release-apk-v${{ steps.version.outputs.version }}
-          path: app/build/outputs/apk/release/*.apk
-          retention-days: 30
-
-      - name: Upload AAB artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-aab-v${{ steps.version.outputs.version }}
-          path: app/build/outputs/bundle/release/*.aab
-          retention-days: 30
-
-      - name: Create GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
-        with:
-          name: "Release v${{ steps.version.outputs.version }}"
-          draft: false
-          prerelease: false
-          generate_release_notes: true
-          files: |
-            app/build/outputs/apk/release/*.apk
-            app/build/outputs/bundle/release/*.aab
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: build-log-${{ github.run_number }}
+          path: build-log.txt
+          retention-days: 7
 
   lint:
     name: Lint Check
