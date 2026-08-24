@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">تحويل مكالمات O2</string>
+    <string name="app_name">تحويل المكالمات من O2</string>
 
     <string name="info_banner_title">عن هذا التطبيق</string>
     <string name="info_banner_body">يرسل هذا التطبيق رموز الشبكة القياسية التي يستخدمها مشغّل شبكتك أصلاً لتحويل المكالمات — نفس الرموز التي تُطلب يدوياً. لا حاجة لاتصال بالإنترنت، ولا تغادر أي بيانات هاتفك.</string>

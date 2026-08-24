@@ -8,12 +8,15 @@ android {
     namespace = "com.alaa.o2rufumleitung"
     compileSdk = 35
 
+    val tagVersion = System.getenv("VERSION_NAME") ?: "0.0.0-dev"
+    val tagCode = System.getenv("VERSION_CODE")?.toIntOrNull() ?: 1
+
     defaultConfig {
         applicationId = "com.alaa.o2rufumleitung"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = tagCode
+        versionName = tagVersion
     }
 
     buildTypes {
