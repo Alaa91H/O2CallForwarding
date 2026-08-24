@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Fix gradlew line endings
+        run: |
+          sed -i 's/\r$//' gradlew
+          chmod +x gradlew
+
       - name: Setup Java 17
         uses: actions/setup-java@v5
         with:
@@ -39,34 +44,16 @@ jobs:
           fi
 
       - name: Build Debug APK
-        id: build_apk
-        run: |
-          set +e
-          ./gradlew assembleDebug --stacktrace > build-output.txt 2>&1
-          EXIT=$?
-          echo "exit=$EXIT" >> $GITHUB_OUTPUT
-          echo "## Gradle assembleDebug (exit=$EXIT)" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -100 build-output.txt >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          exit $EXIT
+        run: ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tail -100
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease
+        run: ./gradlew bundleRelease --no-daemon --stacktrace 2>&1 | tail -100
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
-
-      - name: Show build outputs
-        if: always()
-        run: |
-          echo "## Build Outputs" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          find app/build/outputs -type f 2>/dev/null >> $GITHUB_STEP_SUMMARY || echo "No build outputs found" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
