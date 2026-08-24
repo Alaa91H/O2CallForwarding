@@ -39,12 +39,15 @@ jobs:
           fi
 
       - name: Build Debug APK
+        id: build_apk
         run: |
-          ./gradlew assembleDebug --stacktrace --info 2>&1 | tail -200 > build-error.log
+          set +e
+          ./gradlew assembleDebug --stacktrace > build-output.txt 2>&1
           EXIT=$?
-          echo "## Gradle Build Error (exit=$EXIT)" >> $GITHUB_STEP_SUMMARY
+          echo "exit=$EXIT" >> $GITHUB_OUTPUT
+          echo "## Gradle assembleDebug (exit=$EXIT)" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          cat build-error.log >> $GITHUB_STEP_SUMMARY
+          tail -100 build-output.txt >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           exit $EXIT
         env:
