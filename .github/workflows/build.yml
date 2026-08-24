@@ -39,7 +39,28 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Release APK
-        run: ./gradlew assembleRelease --stacktrace
+        id: build
+        run: |
+          set +e
+          OUTPUT=$(./gradlew assembleRelease --stacktrace 2>&1)
+          BUILD_EXIT=$?
+          echo "$OUTPUT" > /tmp/build-output.txt
+          # Write summary
+          {
+            echo "## Build Result"
+            echo "Exit code: $BUILD_EXIT"
+            echo ""
+            echo "### Last 120 lines:"
+            echo '```'
+            echo "$OUTPUT" | tail -120
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          # Create annotation on failure
+          if [ $BUILD_EXIT -ne 0 ]; then
+            ERRORS=$(echo "$OUTPUT" | grep -i "error\|FAILURE\|FAILED" | head -20)
+            echo "::error::Build failed with exit code $BUILD_EXIT. Errors: $ERRORS"
+          fi
+          exit $BUILD_EXIT
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
