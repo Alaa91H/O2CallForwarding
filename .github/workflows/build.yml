@@ -42,22 +42,29 @@ jobs:
         id: build_debug
         run: |
           set +e
-          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 > /tmp/build-debug.log
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 > build-output.txt
           EXIT=$?
           echo "exit=$EXIT" >> $GITHUB_OUTPUT
-          echo '## Build Debug Output (last 200 lines)' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -200 /tmp/build-debug.log >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          if [ $EXIT -ne 0 ]; then
-            echo "FAIL" > /tmp/build-result.txt
-          else
-            echo "OK" > /tmp/build-result.txt
-          fi
+          echo "## Build Output (last 200 lines)" > summary.txt
+          echo '```' >> summary.txt
+          tail -200 build-output.txt >> summary.txt
+          echo '```' >> summary.txt
+          cat summary.txt >> $GITHUB_STEP_SUMMARY
           exit $EXIT
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
+
+      - name: Commit build error
+        if: failure()
+        run: |
+          git config user.name "CI Bot"
+          git config user.email "ci@bot.com"
+          cp build-output.txt BUILD_ERROR_LOG.txt
+          git add BUILD_ERROR_LOG.txt
+          git diff --cached --quiet && exit 0
+          git commit -m "CI: build error log [skip ci]"
+          git push origin HEAD:main
 
       - name: Build Release AAB
         if: success()
