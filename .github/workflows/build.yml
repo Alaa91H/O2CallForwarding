@@ -22,9 +22,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-
       - name: Extract version from tag
         id: version
         run: |
@@ -38,29 +35,23 @@ jobs:
             echo "code=1" >> $GITHUB_OUTPUT
           fi
 
+      - name: Fix gradlew permissions
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon
+        env:
+          VERSION_NAME: ${{ steps.version.outputs.version }}
+          VERSION_CODE: ${{ steps.version.outputs.code }}
+
       - name: Build Release APK
-        id: build
-        run: |
-          set +e
-          OUTPUT=$(./gradlew assembleRelease 2>&1)
-          EXIT=$?
-          echo "$OUTPUT" > /tmp/build-output.txt
-          {
-            echo "## Build Result (exit $EXIT)"
-            echo '```'
-            echo "$OUTPUT" | tail -100
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-          if [ $EXIT -ne 0 ]; then
-            echo "::error::Build failed with exit code $EXIT"
-          fi
-          exit $EXIT
+        run: ./gradlew assembleRelease --no-daemon
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease
+        run: ./gradlew bundleRelease --no-daemon
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
@@ -103,7 +94,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+      - run: chmod +x gradlew
       - name: Run Lint
-        run: ./gradlew lint
+        run: ./gradlew lint --no-daemon
