@@ -42,14 +42,14 @@ jobs:
         id: build_debug
         run: |
           set +e
-          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 > build-output.txt
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 > build-full.txt
           EXIT=$?
           echo "exit=$EXIT" >> $GITHUB_OUTPUT
-          echo "## Build Output (last 200 lines)" > summary.txt
-          echo '```' >> summary.txt
-          tail -200 build-output.txt >> summary.txt
-          echo '```' >> summary.txt
-          cat summary.txt >> $GITHUB_STEP_SUMMARY
+          # Extract error context
+          grep -A 30 "FAILED\|error\|Error\|FAILURE" build-full.txt > build-errors.txt 2>/dev/null || true
+          cat build-errors.txt
+          echo "---FULL TAIL---"
+          tail -100 build-full.txt
           exit $EXIT
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
@@ -60,7 +60,11 @@ jobs:
         run: |
           git config user.name "CI Bot"
           git config user.email "ci@bot.com"
-          cp build-output.txt BUILD_ERROR_LOG.txt
+          echo "=== FULL BUILD OUTPUT (last 300 lines) ===" > BUILD_ERROR_LOG.txt
+          tail -300 build-full.txt >> BUILD_ERROR_LOG.txt
+          echo "" >> BUILD_ERROR_LOG.txt
+          echo "=== ERROR LINES ===" >> BUILD_ERROR_LOG.txt
+          grep -i "error\|FAILED\|failure" build-full.txt >> BUILD_ERROR_LOG.txt 2>/dev/null || true
           git add BUILD_ERROR_LOG.txt
           git diff --cached --quiet && exit 0
           git commit -m "CI: build error log [skip ci]"
