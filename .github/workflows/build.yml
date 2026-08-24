@@ -41,13 +41,13 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Release APK
-        run: ./gradlew assembleRelease --no-daemon 2>&1 | tail -80
+        run: ./gradlew assembleRelease --no-daemon
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease --no-daemon 2>&1 | tail -80
+        run: ./gradlew bundleRelease --no-daemon
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
