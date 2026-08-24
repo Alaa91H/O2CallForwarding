@@ -40,33 +40,25 @@ jobs:
             echo "code=1" >> $GITHUB_OUTPUT
           fi
 
-      - name: Build Debug APK (retry)
-        run: |
-          for i in 1 2 3; do
-            echo "=== Attempt $i ==="
-            if ./gradlew assembleDebug --no-daemon 2>&1; then
-              echo "Build succeeded on attempt $i"
-              exit 0
-            fi
-            echo "Build failed on attempt $i, retrying..."
-            sleep 10
-          done
-          echo "All attempts failed"
-          exit 1
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon -Dorg.gradle.jvmargs=-Xmx4g
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease --no-daemon
+        run: ./gradlew bundleRelease --no-daemon -Dorg.gradle.jvmargs=-Xmx4g
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
 
-      - name: List output files
+      - name: Show build outputs
         if: always()
         run: |
-          find app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) 2>/dev/null || echo "No output files found"
+          echo "## Build Outputs" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          find app/build/outputs -type f 2>/dev/null >> $GITHUB_STEP_SUMMARY || echo "No build outputs found" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
