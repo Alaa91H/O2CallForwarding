@@ -26,6 +26,8 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
 
       - name: Extract version from tag
         id: version
@@ -43,18 +45,13 @@ jobs:
       - name: Build Debug APK
         id: build_debug
         run: |
-          BUILD_OUTPUT=$(./gradlew assembleDebug --no-daemon --stacktrace 2>&1) || true
-          echo "$BUILD_OUTPUT" | tail -200 > /tmp/build-debug.log
+          ./gradlew assembleDebug --no-daemon --stacktrace > /tmp/build-debug.log 2>&1
+          EXIT_CODE=$?
           echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -100 /tmp/build-debug.log >> $GITHUB_STEP_SUMMARY
+          tail -150 /tmp/build-debug.log >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          if echo "$BUILD_OUTPUT" | grep -q "BUILD SUCCESSFUL"; then
-            echo "✅ Build Debug APK succeeded"
-            exit 0
-          else
-            echo "❌ Build Debug APK failed"
-            exit 1
-          fi
+          find app/build/outputs -type f 2>/dev/null >> $GITHUB_STEP_SUMMARY || echo "No output files" >> $GITHUB_STEP_SUMMARY
+          exit $EXIT_CODE
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
@@ -63,28 +60,16 @@ jobs:
         id: build_release
         if: success()
         run: |
-          BUILD_OUTPUT=$(./gradlew bundleRelease --no-daemon --stacktrace 2>&1) || true
-          echo "$BUILD_OUTPUT" | tail -200 > /tmp/build-release.log
+          ./gradlew bundleRelease --no-daemon --stacktrace > /tmp/build-release.log 2>&1
+          EXIT_CODE=$?
           echo '## Release Build' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           tail -100 /tmp/build-release.log >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          if echo "$BUILD_OUTPUT" | grep -q "BUILD SUCCESSFUL"; then
-            echo "✅ Build Release AAB succeeded"
-            exit 0
-          else
-            echo "❌ Build Release AAB failed"
-            exit 1
-          fi
+          exit $EXIT_CODE
         env:
           VERSION_NAME: ${{ steps.version.outputs.version }}
           VERSION_CODE: ${{ steps.version.outputs.code }}
-
-      - name: List build outputs
-        if: always()
-        run: |
-          echo "## Build Outputs" >> $GITHUB_STEP_SUMMARY
-          find app/build/outputs -type f 2>/dev/null | head -20 >> $GITHUB_STEP_SUMMARY || echo "No outputs found" >> $GITHUB_STEP_SUMMARY
 
       - name: Upload Debug APK
         if: success()
@@ -114,3 +99,13 @@ jobs:
             app/build/outputs/apk/debug/*.apk
             app/build/outputs/bundle/release/*.aab
           fail_on_unmatched_files: false
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            /tmp/build-debug.log
+            /tmp/build-release.log
+          if-no-files-found: ignore
