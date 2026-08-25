@@ -20,12 +20,11 @@
     <string name="type_all_conditional_title">كل الحالات الشرطية</string>
     <string name="type_all_conditional_explanation">يُفعّل تحويل الانشغال وعدم الرد وتعذّر الوصول معاً بخطوة واحدة.</string>
 
-    <string name="number_source_voicemail">البريد الصوتي</string>
+    <string name="number_source_o2_mailbox">البريد الصوتي O2 ‏(333)</string>
+    <string name="o2_mailbox_preset_hint">وجهة البريد الصوتي الرسمية لدى O2. سترسل هذه البطاقة الرقم 333 كوجهة للتحويل.</string>
     <string name="number_source_custom">رقم مخصص</string>
     <string name="custom_number_label">رقم التحويل</string>
     <string name="custom_number_placeholder">مثال: +49 176 xxxxxxxx</string>
-    <string name="voicemail_detected_hint">تم الكشف عنه تلقائياً من الشريحة: %1$s</string>
-    <string name="voicemail_not_detected_hint">تعذّر قراءته تلقائياً. عادةً رقم البريد الصوتي لدى o2 هو رقمك نفسه مع إضافة 33 بعد مقدمة الشبكة (مثلاً 0176 33 xxxxxxx) — أو 13 إذا كان رقمك قادماً من Telekom، أو 55 من Vodafone. يمكنك أيضاً الاتصال مباشرة بالرقم المختصر 333 للوصول إليه.</string>
 
     <string name="status_unknown">لم يُتحقق من الحالة بعد</string>
     <string name="status_checking">جارٍ التحقق…</string>

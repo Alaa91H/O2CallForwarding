@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Renvoi d’appels O2</string>
+
+    <string name="info_banner_title">À propos de cette application</string>
+    <string name="info_banner_body">Cette application envoie les codes réseau standard déjà utilisés par votre opérateur pour le renvoi d’appels. Ce sont les mêmes codes que vous composeriez manuellement. Aucune connexion Internet n’est nécessaire et aucune donnée ne quitte votre téléphone.</string>
+
+    <string name="permission_rationale_title">Autorisation téléphonique requise</string>
+    <string name="permission_rationale_body">Pour envoyer et lire les codes de renvoi, l’application a besoin de l’autorisation d’effectuer des appels. Elle est utilisée uniquement pour les codes réseau affichés ci-dessous.</string>
+    <string name="permission_grant_button">Accorder l’autorisation</string>
+
+    <string name="type_unconditional_title">Renvoyer tous les appels</string>
+    <string name="type_unconditional_explanation">Chaque appel entrant est immédiatement renvoyé, sans faire sonner ce téléphone.</string>
+    <string name="type_busy_title">En cas d’occupation</string>
+    <string name="type_busy_explanation">Les appels ne sont renvoyés que lorsque vous êtes déjà en conversation.</string>
+    <string name="type_no_answer_title">En cas de non-réponse</string>
+    <string name="type_no_answer_explanation">Les appels sont renvoyés si vous ne répondez pas après quelques sonneries.</string>
+    <string name="type_unreachable_title">En cas d’indisponibilité</string>
+    <string name="type_unreachable_explanation">Les appels sont renvoyés lorsque votre téléphone est éteint ou hors couverture.</string>
+    <string name="type_all_conditional_title">Tous les cas conditionnels</string>
+    <string name="type_all_conditional_explanation">Active simultanément le renvoi en cas d’occupation, de non-réponse et d’indisponibilité.</string>
+
+    <string name="number_source_o2_mailbox">Messagerie O2 (333)</string>
+    <string name="o2_mailbox_preset_hint">Destination officielle de la messagerie O2. Cette carte utilise 333 comme destination de renvoi.</string>
+    <string name="number_source_custom">Numéro personnalisé</string>
+    <string name="custom_number_label">Numéro de renvoi</string>
+    <string name="custom_number_placeholder">ex. +49 176 xxxxxxxx</string>
+
+    <string name="status_unknown">Statut non vérifié</string>
+    <string name="status_checking">Vérification…</string>
+    <string name="status_active_label">Réponse du réseau : %1$s</string>
+    <string name="status_error_generic">Impossible de joindre le réseau. Veuillez réessayer.</string>
+    <string name="status_error_permission">L’autorisation téléphonique est requise</string>
+    <string name="status_opened_dialer">Ouvert dans l’application Téléphone. Appuyez sur appeler pour continuer.</string>
+    <string name="check_status_button">Vérifier le statut actuel</string>
+
+    <string name="cancel_all_title">Annuler tous les renvois</string>
+    <string name="cancel_all_explanation">Un seul code pour désactiver tous les types de renvoi à la fois (##002#).</string>
+    <string name="cancel_all_button">Tout annuler</string>
+
+    <string name="error_missing_number">Saisissez d’abord un numéro</string>
+    <string name="footer_note">Ce sont des codes réseau standard envoyés directement sur le réseau téléphonique. Internet n’est pas nécessaire.</string>
+
+    <string name="cd_check_status">Vérifier le statut</string>
+    <string name="cd_permission_icon">Autorisation requise</string>
+</resources>

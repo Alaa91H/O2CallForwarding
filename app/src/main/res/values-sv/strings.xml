@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">O2 Vidarekoppling</string>
+
+    <string name="info_banner_title">Om appen</string>
+    <string name="info_banner_body">Appen skickar de vanliga nätverkskoder som din operatör redan använder för vidarekoppling av samtal. Det är samma koder som du skulle slå manuellt. Ingen internetanslutning behövs och inga data lämnar din telefon.</string>
+
+    <string name="permission_rationale_title">Telefonbehörighet krävs</string>
+    <string name="permission_rationale_body">För att skicka och läsa vidarekopplingskoder behöver appen behörighet att ringa samtal. Den används endast för nätverkskoderna som visas nedan.</string>
+    <string name="permission_grant_button">Ge behörighet</string>
+
+    <string name="type_unconditional_title">Vidarekoppla alla samtal</string>
+    <string name="type_unconditional_explanation">Varje inkommande samtal vidarekopplas direkt utan att den här telefonen ringer.</string>
+    <string name="type_busy_title">När upptaget</string>
+    <string name="type_busy_explanation">Samtal vidarekopplas bara när du redan är i ett annat samtal.</string>
+    <string name="type_no_answer_title">När du inte svarar</string>
+    <string name="type_no_answer_explanation">Samtal vidarekopplas om du inte svarar efter några ringsignaler.</string>
+    <string name="type_unreachable_title">När du inte kan nås</string>
+    <string name="type_unreachable_explanation">Samtal vidarekopplas när telefonen är avstängd eller saknar täckning.</string>
+    <string name="type_all_conditional_title">Alla villkorade fall</string>
+    <string name="type_all_conditional_explanation">Aktiverar vidarekoppling vid upptaget, inget svar och ej nåbar samtidigt.</string>
+
+    <string name="number_source_o2_mailbox">O2-röstbrevlåda (333)</string>
+    <string name="o2_mailbox_preset_hint">Officiell destination för O2-röstbrevlådan. Det här kortet använder 333 som vidarekopplingsmål.</string>
+    <string name="number_source_custom">Eget nummer</string>
+    <string name="custom_number_label">Vidarekopplingsnummer</string>
+    <string name="custom_number_placeholder">t.ex. +49 176 xxxxxxxx</string>
+
+    <string name="status_unknown">Status har inte kontrollerats ännu</string>
+    <string name="status_checking">Kontrollerar…</string>
+    <string name="status_active_label">Nätets svar: %1$s</string>
+    <string name="status_error_generic">Det gick inte att nå nätet. Försök igen.</string>
+    <string name="status_error_permission">Telefonbehörighet krävs</string>
+    <string name="status_opened_dialer">Öppnad i Telefon-appen. Tryck på ring för att fortsätta.</string>
+    <string name="check_status_button">Kontrollera aktuell status</string>
+
+    <string name="cancel_all_title">Avbryt all vidarekoppling</string>
+    <string name="cancel_all_explanation">En kod för att stänga av alla vidarekopplingstyper samtidigt (##002#).</string>
+    <string name="cancel_all_button">Avbryt alla</string>
+
+    <string name="error_missing_number">Ange först ett nummer</string>
+    <string name="footer_note">Det här är standardiserade nätverkskoder som skickas direkt över telefonnätet. Internet behövs inte.</string>
+
+    <string name="cd_check_status">Kontrollera status</string>
+    <string name="cd_permission_icon">Behörighet krävs</string>
+</resources>

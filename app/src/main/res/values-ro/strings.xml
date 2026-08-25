@@ -20,12 +20,11 @@
     <string name="type_all_conditional_title">Toate cazurile condiționate</string>
     <string name="type_all_conditional_explanation">Activează redirecționarea pentru ocupat, fără răspuns și inaccesibil, toate deodată, într-un singur pas.</string>
 
-    <string name="number_source_voicemail">Mesagerie vocală</string>
+    <string name="number_source_o2_mailbox">Mesagerie vocală O2 (333)</string>
+    <string name="o2_mailbox_preset_hint">Destinația oficială pentru mesageria vocală O2. Acest card va folosi 333 ca destinație de redirecționare.</string>
     <string name="number_source_custom">Număr personalizat</string>
     <string name="custom_number_label">Număr de redirecționare</string>
     <string name="custom_number_placeholder">ex. +49 176 xxxxxxxx</string>
-    <string name="voicemail_detected_hint">Detectat automat de pe SIM: %1$s</string>
-    <string name="voicemail_not_detected_hint">Nu a putut fi citit automat. La o2, numărul mesageriei vocale este de obicei propriul tău număr cu 33 introdus după prefix (ex. 0176 33 xxxxxxx) — 13 dacă numărul provine de la Telekom, sau 55 de la Vodafone. Poți suna și direct la 333 pentru a ajunge acolo.</string>
 
     <string name="status_unknown">Starea nu a fost încă verificată</string>
     <string name="status_checking">Se verifică…</string>

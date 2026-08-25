@@ -62,10 +62,6 @@ fun ForwardingScreen(viewModel: ForwardingViewModel = viewModel()) {
     val context = LocalContext.current
     val ussdManager = remember { UssdManager(context) }
     var hasPermission by remember { mutableStateOf(ussdManager.hasCallPermission()) }
-    val detectedVoicemail = remember(hasPermission) {
-        if (hasPermission) ussdManager.systemVoiceMailNumber() else null
-    }
-
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted -> hasPermission = granted }
@@ -106,7 +102,6 @@ fun ForwardingScreen(viewModel: ForwardingViewModel = viewModel()) {
                     containerColor = container,
                     contentColor = onCardColor,
                     enabled = hasPermission,
-                    detectedVoicemailNumber = detectedVoicemail,
                     onStateChange = { transform -> viewModel.update(type, transform) },
                     ussdManager = ussdManager
                 )

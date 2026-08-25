@@ -20,12 +20,11 @@
     <string name="type_all_conditional_title">Alle bedingten Fälle</string>
     <string name="type_all_conditional_explanation">Aktiviert Besetzt-, Nichtannahme- und Nichterreichbarkeits-Umleitung gemeinsam in einem Schritt.</string>
 
-    <string name="number_source_voicemail">Mailbox</string>
+    <string name="number_source_o2_mailbox">O2 Mailbox (333)</string>
+    <string name="o2_mailbox_preset_hint">Offizielles O2-Mailboxziel. Diese Karte verwendet 333 als Umleitungsziel.</string>
     <string name="number_source_custom">Eigene Nummer</string>
     <string name="custom_number_label">Umleitungsnummer</string>
     <string name="custom_number_placeholder">z. B. +49 176 xxxxxxxx</string>
-    <string name="voicemail_detected_hint">Automatisch von der SIM erkannt: %1$s</string>
-    <string name="voicemail_not_detected_hint">Konnte nicht automatisch gelesen werden. Bei o2 besteht die Mailbox-Nummer meist aus deiner eigenen Nummer mit eingefügter 33 nach der Vorwahl (z. B. 0176 33 xxxxxxx) – 13, wenn deine Nummer von der Telekom stammt, oder 55 von Vodafone. Du erreichst die Mailbox auch direkt über die Kurzwahl 333.</string>
 
     <string name="status_unknown">Status noch nicht geprüft</string>
     <string name="status_checking">Wird geprüft…</string>

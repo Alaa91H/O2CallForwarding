@@ -20,12 +20,11 @@
     <string name="type_all_conditional_title">Tüm koşullu durumlar</string>
     <string name="type_all_conditional_explanation">Meşgul, cevapsız ve ulaşılamaz yönlendirmelerini tek adımda birlikte açar.</string>
 
-    <string name="number_source_voicemail">Sesli mesaj</string>
+    <string name="number_source_o2_mailbox">O2 sesli mesajı (333)</string>
+    <string name="o2_mailbox_preset_hint">Resmî O2 sesli mesaj hedefi. Bu kart yönlendirme hedefi olarak 333 kullanır.</string>
     <string name="number_source_custom">Özel numara</string>
     <string name="custom_number_label">Yönlendirme numarası</string>
     <string name="custom_number_placeholder">örn. +49 176 xxxxxxxx</string>
-    <string name="voicemail_detected_hint">SIM\'den otomatik algılandı: %1$s</string>
-    <string name="voicemail_not_detected_hint">Otomatik olarak okunamadı. o2\'de sesli mesaj numaranız genellikle kendi numaranızın şebeke koduyla arasına 33 eklenmiş hâlidir (ör. 0176 33 xxxxxxx) — numaranız Telekom\'dan geldiyse 13, Vodafone\'dan geldiyse 55. Ayrıca 333\'ü arayarak da doğrudan ulaşabilirsiniz.</string>
 
     <string name="status_unknown">Durum henüz kontrol edilmedi</string>
     <string name="status_checking">Kontrol ediliyor…</string>

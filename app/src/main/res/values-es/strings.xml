@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Desvío de llamadas O2</string>
+
+    <string name="info_banner_title">Acerca de esta aplicación</string>
+    <string name="info_banner_body">Esta aplicación envía los códigos de red estándar que tu operador ya utiliza para el desvío de llamadas: los mismos códigos que marcarías manualmente. No se necesita conexión a Internet y ningún dato sale de tu teléfono.</string>
+
+    <string name="permission_rationale_title">Se necesita permiso de teléfono</string>
+    <string name="permission_rationale_body">Para enviar y leer los códigos de desvío, la aplicación necesita permiso para realizar llamadas. Solo se utiliza para los códigos de red mostrados a continuación.</string>
+    <string name="permission_grant_button">Conceder permiso</string>
+
+    <string name="type_unconditional_title">Desviar todas las llamadas</string>
+    <string name="type_unconditional_explanation">Cada llamada entrante se desvía inmediatamente, sin que este teléfono suene.</string>
+    <string name="type_busy_title">Cuando esté ocupado</string>
+    <string name="type_busy_explanation">Las llamadas se desvían solo mientras ya estás en otra llamada.</string>
+    <string name="type_no_answer_title">Cuando no respondas</string>
+    <string name="type_no_answer_explanation">Las llamadas se desvían si no respondes después de varios tonos.</string>
+    <string name="type_unreachable_title">Cuando no estés disponible</string>
+    <string name="type_unreachable_explanation">Las llamadas se desvían cuando el teléfono está apagado o sin cobertura.</string>
+    <string name="type_all_conditional_title">Todos los casos condicionales</string>
+    <string name="type_all_conditional_explanation">Activa conjuntamente el desvío por ocupado, sin respuesta y no disponible.</string>
+
+    <string name="number_source_o2_mailbox">Buzón de voz O2 (333)</string>
+    <string name="o2_mailbox_preset_hint">Destino oficial del buzón de voz de O2. Esta tarjeta usará 333 como destino de desvío.</string>
+    <string name="number_source_custom">Número personalizado</string>
+    <string name="custom_number_label">Número de desvío</string>
+    <string name="custom_number_placeholder">p. ej. +49 176 xxxxxxxx</string>
+
+    <string name="status_unknown">Aún no se ha comprobado el estado</string>
+    <string name="status_checking">Comprobando…</string>
+    <string name="status_active_label">Respuesta de la red: %1$s</string>
+    <string name="status_error_generic">No se pudo contactar con la red. Inténtalo de nuevo.</string>
+    <string name="status_error_permission">Se necesita permiso de teléfono</string>
+    <string name="status_opened_dialer">Se abrió la aplicación Teléfono. Pulsa llamar para continuar.</string>
+    <string name="check_status_button">Comprobar estado actual</string>
+
+    <string name="cancel_all_title">Cancelar todos los desvíos</string>
+    <string name="cancel_all_explanation">Un código para desactivar todos los tipos de desvío a la vez (##002#).</string>
+    <string name="cancel_all_button">Cancelar todo</string>
+
+    <string name="error_missing_number">Introduce primero un número</string>
+    <string name="footer_note">Son códigos de red estándar enviados directamente por la red telefónica. No se necesita Internet.</string>
+
+    <string name="cd_check_status">Comprobar estado</string>
+    <string name="cd_permission_icon">Permiso requerido</string>
+</resources>

@@ -44,7 +44,6 @@ fun ForwardingCard(
     containerColor: Color,
     contentColor: Color,
     enabled: Boolean,
-    detectedVoicemailNumber: String?,
     onStateChange: ((CardUiState) -> CardUiState) -> Unit,
     ussdManager: UssdManager
 ) {
@@ -84,7 +83,6 @@ fun ForwardingCard(
                                 checked = checked,
                                 type = type,
                                 state = state,
-                                detectedVoicemailNumber = detectedVoicemailNumber,
                                 ussdManager = ussdManager,
                                 strings = strings,
                                 onStateChange = onStateChange
@@ -98,7 +96,6 @@ fun ForwardingCard(
 
             NumberSourceSelector(
                 state = state,
-                detectedVoicemailNumber = detectedVoicemailNumber,
                 enabled = enabled && state.requestState == RequestState.IDLE,
                 onStateChange = onStateChange
             )
@@ -143,17 +140,16 @@ fun ForwardingCard(
 @Composable
 private fun NumberSourceSelector(
     state: CardUiState,
-    detectedVoicemailNumber: String?,
     enabled: Boolean,
     onStateChange: ((CardUiState) -> CardUiState) -> Unit
 ) {
     Column {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             FilterChip(
-                selected = state.numberSource == NumberSource.VOICEMAIL,
+                selected = state.numberSource == NumberSource.O2_MAILBOX,
                 enabled = enabled,
-                onClick = { onStateChange { it.copy(numberSource = NumberSource.VOICEMAIL) } },
-                label = { Text(stringResource(R.string.number_source_voicemail)) }
+                onClick = { onStateChange { it.copy(numberSource = NumberSource.O2_MAILBOX) } },
+                label = { Text(stringResource(R.string.number_source_o2_mailbox)) }
             )
             FilterChip(
                 selected = state.numberSource == NumberSource.CUSTOM,
@@ -165,20 +161,12 @@ private fun NumberSourceSelector(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        val showManualField = state.numberSource == NumberSource.CUSTOM ||
-            (state.numberSource == NumberSource.VOICEMAIL && detectedVoicemailNumber.isNullOrBlank())
-
-        if (state.numberSource == NumberSource.VOICEMAIL) {
-            val hint = if (!detectedVoicemailNumber.isNullOrBlank()) {
-                String.format(stringResource(R.string.voicemail_detected_hint), detectedVoicemailNumber)
-            } else {
-                stringResource(R.string.voicemail_not_detected_hint)
-            }
-            Text(text = hint, style = MaterialTheme.typography.bodySmall)
-            if (showManualField) Spacer(modifier = Modifier.height(8.dp))
-        }
-
-        if (showManualField) {
+        if (state.numberSource == NumberSource.O2_MAILBOX) {
+            Text(
+                text = stringResource(R.string.o2_mailbox_preset_hint),
+                style = MaterialTheme.typography.bodySmall
+            )
+        } else {
             OutlinedTextField(
                 value = state.customNumber,
                 onValueChange = { value -> onStateChange { it.copy(customNumber = value) } },
@@ -207,13 +195,12 @@ private fun handleToggle(
     checked: Boolean,
     type: ForwardingType,
     state: CardUiState,
-    detectedVoicemailNumber: String?,
     ussdManager: UssdManager,
     strings: ForwardingCardStrings,
     onStateChange: ((CardUiState) -> CardUiState) -> Unit
 ) {
     if (checked) {
-        val number = numberToUse(state, detectedVoicemailNumber)
+        val number = numberToUse(state)
         if (number.isNullOrBlank()) {
             onStateChange { it.copy(statusMessage = strings.errorMissingNumber) }
             return
@@ -230,10 +217,9 @@ private fun handleToggle(
     }
 }
 
-private fun numberToUse(state: CardUiState, detectedVoicemailNumber: String?): String? =
+private fun numberToUse(state: CardUiState): String? =
     when (state.numberSource) {
-        NumberSource.VOICEMAIL -> detectedVoicemailNumber?.takeIf { it.isNotBlank() }
-            ?: state.customNumber.takeIf { it.isNotBlank() }
+        NumberSource.O2_MAILBOX -> UssdManager.O2_MAILBOX_SHORT_CODE
         NumberSource.CUSTOM -> state.customNumber.takeIf { it.isNotBlank() }
     }
 

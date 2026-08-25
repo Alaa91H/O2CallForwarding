@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Inoltro chiamate O2</string>
+
+    <string name="info_banner_title">Informazioni su questa app</string>
+    <string name="info_banner_body">Questa app invia i codici di rete standard già usati dal tuo operatore per l’inoltro delle chiamate: gli stessi codici che comporresti manualmente. Non è necessaria una connessione Internet e nessun dato lascia il tuo telefono.</string>
+
+    <string name="permission_rationale_title">Autorizzazione telefono necessaria</string>
+    <string name="permission_rationale_body">Per inviare e leggere i codici di inoltro, l’app necessita dell’autorizzazione a effettuare chiamate. Viene usata solo per i codici di rete visualizzati qui sotto.</string>
+    <string name="permission_grant_button">Concedi autorizzazione</string>
+
+    <string name="type_unconditional_title">Inoltra tutte le chiamate</string>
+    <string name="type_unconditional_explanation">Ogni chiamata in arrivo viene inoltrata immediatamente, senza far squillare questo telefono.</string>
+    <string name="type_busy_title">Quando occupato</string>
+    <string name="type_busy_explanation">Le chiamate vengono inoltrate solo mentre sei già in un’altra chiamata.</string>
+    <string name="type_no_answer_title">Quando non rispondi</string>
+    <string name="type_no_answer_explanation">Le chiamate vengono inoltrate se non rispondi dopo alcuni squilli.</string>
+    <string name="type_unreachable_title">Quando non raggiungibile</string>
+    <string name="type_unreachable_explanation">Le chiamate vengono inoltrate quando il telefono è spento o fuori copertura.</string>
+    <string name="type_all_conditional_title">Tutti i casi condizionali</string>
+    <string name="type_all_conditional_explanation">Attiva insieme l’inoltro per occupato, mancata risposta e non raggiungibile.</string>
+
+    <string name="number_source_o2_mailbox">Segreteria O2 (333)</string>
+    <string name="o2_mailbox_preset_hint">Destinazione ufficiale della segreteria O2. Questa scheda usa 333 come destinazione dell’inoltro.</string>
+    <string name="number_source_custom">Numero personalizzato</string>
+    <string name="custom_number_label">Numero di inoltro</string>
+    <string name="custom_number_placeholder">ad es. +49 176 xxxxxxxx</string>
+
+    <string name="status_unknown">Stato non ancora verificato</string>
+    <string name="status_checking">Verifica in corso…</string>
+    <string name="status_active_label">Risposta della rete: %1$s</string>
+    <string name="status_error_generic">Impossibile raggiungere la rete. Riprova.</string>
+    <string name="status_error_permission">È necessaria l’autorizzazione telefono</string>
+    <string name="status_opened_dialer">Aperto nell’app Telefono. Premi chiama per continuare.</string>
+    <string name="check_status_button">Verifica stato attuale</string>
+
+    <string name="cancel_all_title">Annulla tutti gli inoltri</string>
+    <string name="cancel_all_explanation">Un solo codice per disattivare contemporaneamente tutti i tipi di inoltro (##002#).</string>
+    <string name="cancel_all_button">Annulla tutto</string>
+
+    <string name="error_missing_number">Inserisci prima un numero</string>
+    <string name="footer_note">Sono codici di rete standard inviati direttamente sulla rete telefonica. Non è necessaria una connessione Internet.</string>
+
+    <string name="cd_check_status">Verifica stato</string>
+    <string name="cd_permission_icon">Autorizzazione richiesta</string>
+</resources>

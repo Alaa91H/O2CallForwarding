@@ -4,12 +4,12 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.lifecycle.ViewModel
 import com.alaa.o2rufumleitung.data.ForwardingType
 
-enum class NumberSource { VOICEMAIL, CUSTOM }
+enum class NumberSource { O2_MAILBOX, CUSTOM }
 
 enum class RequestState { IDLE, LOADING }
 
 data class CardUiState(
-    val numberSource: NumberSource = NumberSource.VOICEMAIL,
+    val numberSource: NumberSource = NumberSource.O2_MAILBOX,
     val customNumber: String = "",
     val isActive: Boolean? = null,
     val requestState: RequestState = RequestState.IDLE,

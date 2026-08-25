@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Encaminhamento de chamadas O2</string>
+
+    <string name="info_banner_title">Sobre este aplicativo</string>
+    <string name="info_banner_body">Este aplicativo envia os códigos de rede padrão que a sua operadora já usa para encaminhamento de chamadas: os mesmos códigos que você discaria manualmente. Não é necessária conexão com a internet e nenhum dado sai do seu telefone.</string>
+
+    <string name="permission_rationale_title">Permissão de telefone necessária</string>
+    <string name="permission_rationale_body">Para enviar e ler os códigos de encaminhamento, o aplicativo precisa da permissão para fazer chamadas. Ela é usada apenas para os códigos de rede mostrados abaixo.</string>
+    <string name="permission_grant_button">Conceder permissão</string>
+
+    <string name="type_unconditional_title">Encaminhar todas as chamadas</string>
+    <string name="type_unconditional_explanation">Cada chamada recebida é encaminhada imediatamente, sem tocar neste telefone.</string>
+    <string name="type_busy_title">Quando estiver ocupado</string>
+    <string name="type_busy_explanation">As chamadas são encaminhadas apenas quando você já está em outra chamada.</string>
+    <string name="type_no_answer_title">Quando não atender</string>
+    <string name="type_no_answer_explanation">As chamadas são encaminhadas se você não atender após alguns toques.</string>
+    <string name="type_unreachable_title">Quando estiver indisponível</string>
+    <string name="type_unreachable_explanation">As chamadas são encaminhadas quando o telefone está desligado ou sem cobertura.</string>
+    <string name="type_all_conditional_title">Todos os casos condicionais</string>
+    <string name="type_all_conditional_explanation">Ativa de uma vez o encaminhamento por ocupado, sem resposta e indisponível.</string>
+
+    <string name="number_source_o2_mailbox">Caixa postal O2 (333)</string>
+    <string name="o2_mailbox_preset_hint">Destino oficial da caixa postal O2. Este cartão usará 333 como destino do encaminhamento.</string>
+    <string name="number_source_custom">Número personalizado</string>
+    <string name="custom_number_label">Número de encaminhamento</string>
+    <string name="custom_number_placeholder">ex.: +49 176 xxxxxxxx</string>
+
+    <string name="status_unknown">O status ainda não foi verificado</string>
+    <string name="status_checking">Verificando…</string>
+    <string name="status_active_label">Resposta da rede: %1$s</string>
+    <string name="status_error_generic">Não foi possível acessar a rede. Tente novamente.</string>
+    <string name="status_error_permission">A permissão de telefone é necessária</string>
+    <string name="status_opened_dialer">Aberto no aplicativo Telefone. Toque em ligar para continuar.</string>
+    <string name="check_status_button">Verificar status atual</string>
+
+    <string name="cancel_all_title">Cancelar todos os encaminhamentos</string>
+    <string name="cancel_all_explanation">Um único código para desativar todos os tipos de encaminhamento de uma vez (##002#).</string>
+    <string name="cancel_all_button">Cancelar tudo</string>
+
+    <string name="error_missing_number">Digite primeiro um número</string>
+    <string name="footer_note">Estes são códigos de rede padrão enviados diretamente pela rede telefônica. Não é necessária conexão com a internet.</string>
+
+    <string name="cd_check_status">Verificar status</string>
+    <string name="cd_permission_icon">Permissão necessária</string>
+</resources>

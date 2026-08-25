@@ -20,12 +20,11 @@
     <string name="type_all_conditional_title">Wszystkie przypadki warunkowe</string>
     <string name="type_all_conditional_explanation">Włącza przekierowanie przy zajętości, braku odpowiedzi i niedostępności jednocześnie, jednym krokiem.</string>
 
-    <string name="number_source_voicemail">Poczta głosowa</string>
+    <string name="number_source_o2_mailbox">Poczta głosowa O2 (333)</string>
+    <string name="o2_mailbox_preset_hint">Oficjalny cel poczty głosowej O2. Ta karta użyje numeru 333 jako celu przekierowania.</string>
     <string name="number_source_custom">Własny numer</string>
     <string name="custom_number_label">Numer przekierowania</string>
     <string name="custom_number_placeholder">np. +49 176 xxxxxxxx</string>
-    <string name="voicemail_detected_hint">Automatycznie wykryto z karty SIM: %1$s</string>
-    <string name="voicemail_not_detected_hint">Nie udało się odczytać automatycznie. W o2 numer poczty głosowej to zazwyczaj Twój własny numer z wstawionym 33 po prefiksie (np. 0176 33 xxxxxxx) — 13, jeśli numer pochodzi od Telekom, lub 55 od Vodafone. Możesz też zadzwonić pod 333, aby połączyć się bezpośrednio.</string>
 
     <string name="status_unknown">Status nie został jeszcze sprawdzony</string>
     <string name="status_checking">Sprawdzanie…</string>

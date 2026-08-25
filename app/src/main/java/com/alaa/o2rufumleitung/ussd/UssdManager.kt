@@ -92,21 +92,10 @@ class UssdManager(private val context: Context) {
         context.startActivity(intent)
     }
 
-    /**
-     * Best-effort read of the voicemail number the SIM/carrier already has
-     * configured. Returns null if the device doesn't expose one - o2's
-     * mailbox number isn't a single fixed number, it's built from the
-     * user's own number, so this is only ever a convenience shortcut.
-     */
-    fun systemVoiceMailNumber(): String? = try {
-        val telephonyManager =
-            context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        telephonyManager.voiceMailNumber?.takeIf { it.isNotBlank() }
-    } catch (e: Exception) {
-        null
-    }
-
     companion object {
+        /** O2 Germany's official short destination for forwarding to its mailbox. */
+        const val O2_MAILBOX_SHORT_CODE = "333"
+
         /** Standard GSM code that cancels every active forwarding at once. */
         const val CANCEL_ALL_CODE = "##002#"
     }

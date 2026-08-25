@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Fallback language, used when the system language is none of the
-     five supported ones (German, Arabic, Turkish, Ukrainian, Romanian). -->
 <resources>
     <string name="app_name">O2 Call Forwarding</string>
 
@@ -22,12 +20,11 @@
     <string name="type_all_conditional_title">All conditional cases</string>
     <string name="type_all_conditional_explanation">Turns on busy, unanswered, and unreachable forwarding together, in one step.</string>
 
-    <string name="number_source_voicemail">Voicemail</string>
+    <string name="number_source_o2_mailbox">O2 Mailbox (333)</string>
+    <string name="o2_mailbox_preset_hint">Official O2 mailbox target. This card will send 333 as the forwarding destination.</string>
     <string name="number_source_custom">Custom number</string>
     <string name="custom_number_label">Forwarding number</string>
     <string name="custom_number_placeholder">e.g. +49 176 xxxxxxxx</string>
-    <string name="voicemail_detected_hint">Detected automatically from your SIM: %1$s</string>
-    <string name="voicemail_not_detected_hint">Couldn\'t read it automatically. On o2, your mailbox number is usually your own number with 33 inserted after the prefix (e.g. 0176 33 xxxxxxx) — 13 if your number came from Telekom, or 55 from Vodafone. You can also just dial 333 to reach it directly.</string>
 
     <string name="status_unknown">Status not checked yet</string>
     <string name="status_checking">Checking…</string>
