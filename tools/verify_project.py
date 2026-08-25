@@ -87,18 +87,31 @@ def main() -> None:
     expect_contains(forwarding_card, "NumberSource.CUSTOM -> state.customNumber.takeIf { it.isNotBlank() }")
     expect_contains(forwarding_card, "R.string.number_source_o2_mailbox")
     expect_contains(forwarding_card, "R.string.number_source_custom")
+    expect_contains(forwarding_card, "type.activationCode(UssdManager.O2_MAILBOX_SHORT_CODE)")
+    expect_contains(forwarding_card, "activating = true")
     expect_absent(forwarding_card, "NumberSource.VOICEMAIL")
     expect_absent(ussd_manager, "systemVoiceMailNumber")
 
+    mailbox_activation_codes = {
+        "UNCONDITIONAL": "**21*333#",
+        "BUSY": "**67*333#",
+        "NO_ANSWER": "**61*333#",
+        "UNREACHABLE": "**62*333#",
+        "ALL_CONDITIONAL": "**004*333#",
+    }
     for code in ("21", "67", "61", "62", "004"):
         expect_contains(forwarding_type, f'mmiCode = "{code}"')
         expect_contains(forwarding_type, f'deactivationCode = "##{code}#"')
         expect_contains(forwarding_type, f'statusCode = "*#{code}#"')
     expect_contains(forwarding_type, 'fun activationCode(number: String): String = "**$mmiCode*$number#"')
+    assert set(mailbox_activation_codes.values()) == {
+        f"**{code}*333#" for code in ("21", "67", "61", "62", "004")
+    }
 
     print(f"PASS: {len(locale_files)} Android resource files parsed successfully.")
     print(f"PASS: {len(base_keys)} keys are present and identical in every locale.")
-    print("PASS: O2 mailbox preset is defaulted and resolves only to official short code 333.")
+    print("PASS: Tapping the O2 mailbox preset activates the selected forwarding type with 333.")
+    print("PASS: O2 mailbox activation codes: " + ", ".join(mailbox_activation_codes.values()))
     print("PASS: The manual number field is available only for custom forwarding.")
     print("PASS: All five forwarding categories expose activation, deactivation, and status codes.")
 

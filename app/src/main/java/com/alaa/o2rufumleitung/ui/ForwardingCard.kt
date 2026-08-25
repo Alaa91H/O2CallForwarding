@@ -95,9 +95,12 @@ fun ForwardingCard(
             Spacer(modifier = Modifier.height(12.dp))
 
             NumberSourceSelector(
+                type = type,
                 state = state,
                 enabled = enabled && state.requestState == RequestState.IDLE,
-                onStateChange = onStateChange
+                onStateChange = onStateChange,
+                ussdManager = ussdManager,
+                strings = strings
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -139,16 +142,31 @@ fun ForwardingCard(
 
 @Composable
 private fun NumberSourceSelector(
+    type: ForwardingType,
     state: CardUiState,
     enabled: Boolean,
-    onStateChange: ((CardUiState) -> CardUiState) -> Unit
+    onStateChange: ((CardUiState) -> CardUiState) -> Unit,
+    ussdManager: UssdManager,
+    strings: ForwardingCardStrings
 ) {
     Column {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             FilterChip(
                 selected = state.numberSource == NumberSource.O2_MAILBOX,
                 enabled = enabled,
-                onClick = { onStateChange { it.copy(numberSource = NumberSource.O2_MAILBOX) } },
+                onClick = {
+                    onStateChange {
+                        it.copy(
+                            numberSource = NumberSource.O2_MAILBOX,
+                            requestState = RequestState.LOADING
+                        )
+                    }
+                    ussdManager.sendUssd(
+                        type.activationCode(UssdManager.O2_MAILBOX_SHORT_CODE)
+                    ) { outcome ->
+                        onStateChange { applyOutcome(it, outcome, activating = true, strings = strings) }
+                    }
+                },
                 label = { Text(stringResource(R.string.number_source_o2_mailbox)) }
             )
             FilterChip(
