@@ -33,6 +33,22 @@ jobs:
           chmod 600 app/signing/release.keystore
           ls -la app/signing/
 
+      - name: Verify fixed release signing certificate
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          KEYSTORE_FILE: ${{ github.workspace }}/app/signing/release.keystore
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEYSTORE_CERT_SHA256: ${{ secrets.KEYSTORE_CERT_SHA256 }}
+        run: |
+          set -euo pipefail
+          expected="$(printf '%s' "$KEYSTORE_CERT_SHA256" | tr -d '[:space:]:' | tr '[:lower:]' '[:upper:]')"
+          actual="$(keytool -list -v -keystore "$KEYSTORE_FILE" -storepass "$KEYSTORE_PASSWORD" -alias "$KEY_ALIAS" 2>/dev/null | awk -F ': ' '/SHA256:/ { gsub(":", "", $2); print toupper($2); exit }')"
+          test -n "$expected"
+          test -n "$actual"
+          test "$actual" = "$expected"
+          echo "Release signing certificate matches the pinned fingerprint."
+
       - name: Extract version from tag
         id: version
         run: |
