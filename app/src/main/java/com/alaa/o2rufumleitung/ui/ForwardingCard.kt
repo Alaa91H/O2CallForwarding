@@ -44,6 +44,7 @@ fun ForwardingCard(
     containerColor: Color,
     contentColor: Color,
     enabled: Boolean,
+    onRequestPermission: () -> Unit,
     onStateChange: ((CardUiState) -> CardUiState) -> Unit,
     ussdManager: UssdManager
 ) {
@@ -97,7 +98,8 @@ fun ForwardingCard(
             NumberSourceSelector(
                 type = type,
                 state = state,
-                enabled = enabled && state.requestState == RequestState.IDLE,
+                canPlaceCalls = enabled,
+                onRequestPermission = onRequestPermission,
                 onStateChange = onStateChange,
                 ussdManager = ussdManager,
                 strings = strings
@@ -144,7 +146,8 @@ fun ForwardingCard(
 private fun NumberSourceSelector(
     type: ForwardingType,
     state: CardUiState,
-    enabled: Boolean,
+    canPlaceCalls: Boolean,
+    onRequestPermission: () -> Unit,
     onStateChange: ((CardUiState) -> CardUiState) -> Unit,
     ussdManager: UssdManager,
     strings: ForwardingCardStrings
@@ -153,25 +156,32 @@ private fun NumberSourceSelector(
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             FilterChip(
                 selected = state.numberSource == NumberSource.O2_MAILBOX,
-                enabled = enabled,
+                enabled = state.requestState == RequestState.IDLE,
                 onClick = {
-                    onStateChange {
-                        it.copy(
-                            numberSource = NumberSource.O2_MAILBOX,
-                            requestState = RequestState.LOADING
-                        )
-                    }
-                    ussdManager.sendUssd(
-                        type.activationCode(UssdManager.O2_MAILBOX_SHORT_CODE)
-                    ) { outcome ->
-                        onStateChange { applyOutcome(it, outcome, activating = true, strings = strings) }
+                    if (!canPlaceCalls) {
+                        onRequestPermission()
+                    } else {
+                        onStateChange {
+                            it.copy(
+                                numberSource = NumberSource.O2_MAILBOX,
+                                requestState = RequestState.LOADING
+                            )
+                        }
+                        ussdManager.startCall(
+                            type.activationCode(UssdManager.O2_MAILBOX_SHORT_CODE)
+                        ) { outcome ->
+                            val activationConfirmed = if (outcome is UssdOutcome.OpenedInDialer) null else true
+                            onStateChange {
+                                applyOutcome(it, outcome, activating = activationConfirmed, strings = strings)
+                            }
+                        }
                     }
                 },
                 label = { Text(stringResource(R.string.number_source_o2_mailbox)) }
             )
             FilterChip(
                 selected = state.numberSource == NumberSource.CUSTOM,
-                enabled = enabled,
+                enabled = state.requestState == RequestState.IDLE,
                 onClick = { onStateChange { it.copy(numberSource = NumberSource.CUSTOM) } },
                 label = { Text(stringResource(R.string.number_source_custom)) }
             )
@@ -188,7 +198,7 @@ private fun NumberSourceSelector(
             OutlinedTextField(
                 value = state.customNumber,
                 onValueChange = { value -> onStateChange { it.copy(customNumber = value) } },
-                enabled = enabled,
+                enabled = state.requestState == RequestState.IDLE,
                 singleLine = true,
                 label = { Text(stringResource(R.string.custom_number_label)) },
                 placeholder = { Text(stringResource(R.string.custom_number_placeholder)) },

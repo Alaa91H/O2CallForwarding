@@ -78,17 +78,25 @@ def main() -> None:
     view_model = ROOT / "app/src/main/java/com/alaa/o2rufumleitung/ui/ForwardingViewModel.kt"
     ussd_manager = ROOT / "app/src/main/java/com/alaa/o2rufumleitung/ussd/UssdManager.kt"
     forwarding_card = ROOT / "app/src/main/java/com/alaa/o2rufumleitung/ui/ForwardingCard.kt"
+    forwarding_screen = ROOT / "app/src/main/java/com/alaa/o2rufumleitung/ui/ForwardingScreen.kt"
     forwarding_type = ROOT / "app/src/main/java/com/alaa/o2rufumleitung/data/ForwardingType.kt"
 
     expect_contains(view_model, "enum class NumberSource { O2_MAILBOX, CUSTOM }")
     expect_contains(view_model, "val numberSource: NumberSource = NumberSource.O2_MAILBOX")
     expect_contains(ussd_manager, 'const val O2_MAILBOX_SHORT_CODE = "333"')
+    expect_contains(ussd_manager, "fun startCall(code: String, onResult: (UssdOutcome) -> Unit)")
+    expect_contains(ussd_manager, "Intent.ACTION_CALL")
     expect_contains(forwarding_card, "NumberSource.O2_MAILBOX -> UssdManager.O2_MAILBOX_SHORT_CODE")
     expect_contains(forwarding_card, "NumberSource.CUSTOM -> state.customNumber.takeIf { it.isNotBlank() }")
     expect_contains(forwarding_card, "R.string.number_source_o2_mailbox")
     expect_contains(forwarding_card, "R.string.number_source_custom")
     expect_contains(forwarding_card, "type.activationCode(UssdManager.O2_MAILBOX_SHORT_CODE)")
-    expect_contains(forwarding_card, "activating = true")
+    expect_contains(forwarding_card, "ussdManager.startCall(")
+    expect_contains(forwarding_card, "if (!canPlaceCalls) {")
+    expect_contains(forwarding_card, "onRequestPermission()")
+    expect_contains(forwarding_screen, "onRequestPermission = { permissionLauncher.launch(Manifest.permission.CALL_PHONE) }")
+    expect_contains(forwarding_card, "val activationConfirmed = if (outcome is UssdOutcome.OpenedInDialer) null else true")
+    expect_contains(forwarding_card, "activating = activationConfirmed")
     expect_absent(forwarding_card, "NumberSource.VOICEMAIL")
     expect_absent(ussd_manager, "systemVoiceMailNumber")
 
@@ -110,7 +118,7 @@ def main() -> None:
 
     print(f"PASS: {len(locale_files)} Android resource files parsed successfully.")
     print(f"PASS: {len(base_keys)} keys are present and identical in every locale.")
-    print("PASS: Tapping the O2 mailbox preset activates the selected forwarding type with 333.")
+    print("PASS: Tapping the O2 mailbox preset requests call permission when needed, then launches its MMI call with 333.")
     print("PASS: O2 mailbox activation codes: " + ", ".join(mailbox_activation_codes.values()))
     print("PASS: The manual number field is available only for custom forwarding.")
     print("PASS: All five forwarding categories expose activation, deactivation, and status codes.")

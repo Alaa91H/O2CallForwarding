@@ -102,6 +102,7 @@ fun ForwardingScreen(viewModel: ForwardingViewModel = viewModel()) {
                     containerColor = container,
                     contentColor = onCardColor,
                     enabled = hasPermission,
+                    onRequestPermission = { permissionLauncher.launch(Manifest.permission.CALL_PHONE) },
                     onStateChange = { transform -> viewModel.update(type, transform) },
                     ussdManager = ussdManager
                 )

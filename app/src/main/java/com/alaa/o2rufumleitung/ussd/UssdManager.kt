@@ -85,6 +85,24 @@ class UssdManager(private val context: Context) {
         }
     }
 
+    /**
+     * Starts the phone call carrying an MMI/USSD code immediately. This is used
+     * for the O2 mailbox preset because some OEMs suppress in-app USSD
+     * callbacks even though their Phone app can execute the same network code.
+     */
+    fun startCall(code: String, onResult: (UssdOutcome) -> Unit) {
+        if (!hasCallPermission()) {
+            onResult(UssdOutcome.PermissionMissing)
+            return
+        }
+        try {
+            openInDialer(code)
+            onResult(UssdOutcome.OpenedInDialer)
+        } catch (_: Exception) {
+            onResult(UssdOutcome.NetworkError(-1))
+        }
+    }
+
     @SuppressLint("MissingPermission")
     private fun openInDialer(code: String) {
         val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + Uri.encode(code)))
