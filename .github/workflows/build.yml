@@ -79,17 +79,6 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Build Release AAB
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: ./gradlew bundleRelease --no-daemon --stacktrace
-        env:
-          VERSION_NAME: ${{ steps.version.outputs.version }}
-          VERSION_CODE: ${{ steps.version.outputs.code }}
-          KEYSTORE_FILE: ${{ github.workspace }}/app/signing/release.keystore
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
@@ -105,14 +94,6 @@ jobs:
           path: app/build/outputs/apk/release/*.apk
           if-no-files-found: warn
 
-      - name: Upload Release AAB
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: actions/upload-artifact@v4
-        with:
-          name: bundle-release
-          path: app/build/outputs/bundle/release/*.aab
-          if-no-files-found: warn
-
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
@@ -121,7 +102,5 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: true
-          files: |
-            app/build/outputs/apk/release/*.apk
-            app/build/outputs/bundle/release/*.aab
+          files: app/build/outputs/apk/release/*.apk
           fail_on_unmatched_files: false
