@@ -1,42 +1,83 @@
-# تحويل مكالمات O2 (O2 Rufumleitung)
+<div align="center">
 
-تطبيق أندرويد لإدارة تحويل المكالمات على شبكة o2 الألمانية، عبر أكواد الشبكة القياسية (GSM) مباشرة — بدون إنترنت وبدون أي بيانات تُرسل لأي خادم.
+# O2 Call Forwarding
 
-## المزايا
+### A clean Android interface for managing GSM call-forwarding settings locally
 
-- 5 بطاقات: تحويل كل المكالمات، عند الانشغال، عند عدم الرد، عند تعذر الوصول، وتفعيل كل الحالات الشرطية دفعة وحدة + بطاقة "إلغاء الكل".
-- تفعيل/إلغاء بمفتاح واحد (Switch)، وزر لقراءة الحالة الحالية من الشبكة مباشرة (رد الشبكة يُعرض كما هو).
-- اختيار الوجهة من كل بطاقة: زر ثابت وجاهز لـ **بريد O2 الصوتي (333)** أو زر **تحويل مخصص**.
-- الرقم **333** محدد افتراضياً في جميع بطاقات التحويل؛ لذلك لا يظهر أي حقل لإدخال رقم عند اختيار بريد O2 الصوتي. الضغط على زر بريد O2 الصوتي يفعّل التحويل مباشرةً في البطاقة الحالية بالكود المناسب للحالة.
-- يظهر حقل إدخال الرقم فقط بعد اختيار **تحويل مخصص**.
-- 11 لغة كاملة: الألمانية، العربية، التركية، الأوكرانية، الرومانية، البولندية، الفرنسية، الإسبانية، الإيطالية، السويدية، والبرتغالية البرازيلية، مع الإنجليزية لغةً احتياطية.
-- الوضع الفاتح/الداكن يتبع النظام تلقائياً، مع دعم الألوان الديناميكية (Material You) على أندرويد 12+.
-- تصميم Material 3 بصفحة واحدة، وكل خيار ضمن بطاقة بلون رمادي/رمادي مزرق بالتناوب (فاتح وداكن حسب الوضع).
+<img src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android" />
+<img src="https://img.shields.io/badge/UI-Material%203-4285F4?style=for-the-badge&logo=materialdesign&logoColor=white" alt="Material 3" />
+<img src="https://img.shields.io/badge/Network-GSM%20MMI%20%2F%20USSD-2563EB?style=for-the-badge" alt="GSM MMI / USSD" />
+<img src="https://img.shields.io/badge/Service-Local--first-16A34A?style=for-the-badge" alt="Local-first" />
 
-## فتح المشروع
+</div>
 
-1. افتح Android Studio (أحدث إصدار مستقر).
-2. Open → اختر مجلد المشروع.
-3. انتظر مزامنة Gradle. إذا اقترح Android Studio ترقية AGP تلقائياً، القبول آمن.
-4. شغّله على **جهاز حقيقي** فيه شريحة اتصال — المحاكي (emulator) ما بقدر يشغّل أكواد USSD فعلياً.
+---
 
-## استمرارية توقيع الإصدارات
+## Overview
 
-تُبنى الإصدارات الموسومة من GitHub Actions باستخدام مفتاح الإصدار المحفوظ في أسرار المستودع. يطابق المسار تلقائياً شهادة المفتاح المفكوك مع السر `KEYSTORE_CERT_SHA256` قبل بناء APK وAAB؛ ويفشل البناء إذا لم تتطابق البصمة. يحمي ذلك التحديثات القادمة من توقيع غير مقصود بمفتاح مختلف.
+**O2 Call Forwarding** is an Android utility for configuring call forwarding through standard GSM/MMI codes. It is designed primarily for **O2 Germany**, with a simple Material 3 interface that keeps the workflow on the device and hands commands to the mobile network.
 
-> **تحذير:** لا تستبدل `KEYSTORE_BASE64` أو أسرار كلمة المرور والاسم المستعار إلا إذا كنت تقصد تغيير هوية توقيع التطبيق. يلزم توقيع التحديثات المتوافقة بنفس الشهادة كي تُثبت فوق النسخ الحالية. [1]
+The app provides dedicated controls for common forwarding modes instead of requiring users to remember or manually type network codes.
 
-## ملاحظات مهمة (بصراحة)
+## Features
 
-- **الصلاحية**: التطبيق بيطلب صلاحية `CALL_PHONE` لإرسال وقراءة أكواد USSD مباشرة داخل التطبيق (`TelephonyManager.sendUssdRequest`، يتطلب أندرويد 8+). إذا رُفضت الصلاحية أو فشل الطلب لأي سبب، بيفتح تطبيق الهاتف تلقائياً بالكود جاهز وبس تضغط زر الاتصال.
-- **بريد O2 الصوتي**: يؤكد [دليل O2 الرسمي](https://www.o2online.de/service/mailbox-voicemail/) أن الوجهة المختصرة لتحويل المكالمات إلى بريد O2 الصوتي هي **333**. الضغط على زر البريد الصوتي في البطاقة يفعّل فوراً الكود الملائم: `**21*333#` لجميع المكالمات، و`**67*333#` للانشغال، و`**61*333#` لعدم الرد، و`**62*333#` لتعذر الوصول، و`**004*333#` لكل الحالات الشرطية. يظل **333** ثابتاً بلا إدخال رقم وبلا قراءة رقم من الشريحة، أما الرقم اليدوي فهو لمسار التحويل المخصص فقط.
-- **الأكواد المستخدمة**: أكواد GSM قياسية (ETSI/3GPP)، شغالة بنفس الشكل على أي شبكة، مش خاصة بـ o2 بس. تأكدت منها ومن تفاصيل mailbox عبر البحث قبل الكتابة، مش من الذاكرة بس.
-- **إصدارات الأدوات**: المشروع مضبوط على AGP 8.7.3 وKotlin 2.0.21 وCompose BOM 2025.12.00. راجع توافق الإصدارات واختباراتك قبل قبول أي ترقية تلقائية من Android Studio.
-- غيّر `applicationId` و `namespace` بملف `app/build.gradle.kts` قبل أي نشر رسمي إذا حابب.
-- الألوان بالضبط (رمادي/رمادي مزرق) هي تفسيري لطلبك — سهل تغيّرها من `ui/theme/Color.kt` إذا مو هيك تمام قصدك.
+- Forward **all calls**.
+- Forward when **busy**.
+- Forward when there is **no answer**.
+- Forward when the phone is **unreachable**.
+- Configure all supported **conditional forwarding** modes together.
+- Cancel forwarding rules from the same interface.
+- Query the current forwarding status where the carrier/device supports the required USSD response flow.
+- One-tap forwarding to the **O2 voicemail short code (333)**.
+- Support for a **custom destination number**.
+- Material 3 interface with system light/dark theme and Android 12+ dynamic color.
+- Localized UI for multiple languages, with English fallback.
 
-هاد التطبيق أداة شخصية لإدارة إعدادات تحويل مكالماتك الخاصة على رقمك، مو أداة تجسس أو تحويل مكالمات غيرك.
+## How It Works
 
-## المراجع
+The app maps each forwarding action to the corresponding GSM supplementary-service code and sends it through Android's telephony APIs.
 
-[1] [Android Developers — Sign your app](https://developer.android.com/studio/publish/app-signing)
+For example, the O2 voicemail destination uses the short code `333` with the relevant forwarding prefix for the selected condition.
+
+> Carrier support for individual MMI/USSD operations can vary. If a direct request cannot be completed by Android or the network, the app can hand the prepared code to the phone dialer for user confirmation.
+
+## Permissions
+
+The app requests `CALL_PHONE` when required to submit supported USSD/MMI requests directly.
+
+Permissions are requested only for the telephony action that needs them; the project does not require a cloud backend to manage forwarding settings.
+
+## Build
+
+1. Open the project in a recent Android Studio version.
+2. Allow Gradle to sync the project.
+3. Connect a **real Android device with an active SIM**.
+4. Build and run the app.
+
+A physical device is recommended because emulators generally cannot execute real carrier USSD/MMI operations.
+
+## Release Signing
+
+Tagged releases are built through GitHub Actions using repository secrets for the signing identity. The workflow verifies the signing certificate fingerprint before producing release artifacts.
+
+Keep the production keystore and credentials private and preserve the same signing identity for upgrade compatibility.
+
+## Compatibility Notes
+
+- The UI and project are optimized around O2 Germany's voicemail workflow.
+- Standard GSM forwarding codes are widely used, but actual behavior remains carrier- and device-dependent.
+- Android versions, OEM telephony implementations, dual-SIM behavior, and carrier restrictions can affect direct USSD execution.
+
+## Disclaimer
+
+This is an **independent, unofficial utility** and is not affiliated with or endorsed by Telefónica Germany / O2.
+
+Users should verify their carrier's forwarding rules and any possible call-forwarding charges before enabling a configuration.
+
+---
+
+<div align="center">
+
+**Simple call-forwarding controls without memorizing carrier codes.**
+
+</div>
